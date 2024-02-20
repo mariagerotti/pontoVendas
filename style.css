@@ -165,15 +165,25 @@ td:last-child {
     background-color: rgba(128, 128, 128, 0.205);
     padding: 32px;
     border-radius: 8px;
+
+ 
 }
 
-/*hr{
-    display: block;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: inset;
-    border-width: 1px;
+.tax-paid{
+       border-bottom: 0.1vw solid gray;
+    height: 8vh;
+    width: 500px;
+    display: flex;
+    justify-content: end;
+}
 
-}*/
+.image-beans{
+    display:         flex;
+    display: -webkit-flex;
+    justify-content:start;
+    align-items: start;
+}
+img{
+    position: relative;
+}
+
