@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+
+*{
+    font-family: "Inter", sans-serif;
+
+}
+
+.header{
+    background-color: darkslateblue;
+    display: flex;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    padding: 10px;
+}
+
+li{
+    padding: 10px;
+    color: black;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
