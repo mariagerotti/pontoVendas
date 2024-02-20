@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+* {
+  font-family: "Inter", sans-serif;
+}
+
+.header {
+  background-color: rgb(114, 92, 252);
+  display: flex;
+}
+.main-index {
+  display: flex;
+  height: 100%;
+  padding: 16px;
+}
+.half {
+  flex: 1;
+}
+
+.add-products {
+  padding-right: 16px;
+  border-right: 0.1vw solid gray;
+  height: 80vh;
+}
+
+.info-products {
+  padding: 16px;
+}
+.amount-tax-price {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.secundary-button {
+  display: block;
+  width: 100%;
+}
+
+.finish-add {
+  padding: 3%;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+.total-tax {
+  padding: 3%;
+  position: fixed;
+  bottom: 90px;
+  right: 0px;
+  /*flex direction column*/
+}
+
+h1 {
+  margin-left: 12px;
+}
+
+ul {
+  display: flex;
+  list-style-type: none;
+  padding: 10px;
+}
+
+li {
+  padding: 10px;
+  color: black;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+button {
+  background-color: rgb(114, 92, 252);
+  border: none;
+  border-radius: 3px;
+  padding: 8px;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.primary-button {
+  background-color: gray;
+}
+
+input {
+  font-weight: bolder;
+  padding: 4px;
+  border: 0.1vw solid rgba(128, 128, 128, 0.582);
+  background-color: rgba(128, 128, 128, 0.075);
+  border-radius: 4px;
+}
+
+#product-data {
+  display: block;
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border-bottom: 0.1vw solid gray;
+  text-align: left;
+  padding: 4px;
+  border-right: 0.1vw solid gray;
+}
+
+th:last-child,
+td:last-child {
+  border-right: none;
+}
