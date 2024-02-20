@@ -4,80 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Suite Store</title>
   </head>
 
   <body>
     <div class="header">
-        <h1>suite store</h1>
+        <h1>Suite Store</h1>
         <ul>
-          <li><a href="index.html">home</a></li>
-          <li><a href="products.html">products</a></li>
-          <li><a href="categories.html">categories</a></li>
-          <li><a href="history.html">history</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="history.html">History</a></li>
         </ul>
     </div>
 
     <div class="main-index">
       <div class="add-products">
-        <label for="product-data">product:</label>
+        <label for="product-data">Product:</label>
         <input list="product" id="product-data" name="add-wich-product" />
         <datalist id="product">
-          <option value="Chocolate"></option>
-          <option value="Coconut"></option>
-          <option value="Mint"></option>
-          <option value="Strawberry"></option>
-          <option value="Vanilla"></option>
+          <option value="beans"></option>
+          <option value="coconut"></option>
+          <option value="potato"></option>
+          <option value="rice"></option>
+          <option value="apple"></option>
         </datalist>
         
         <br />
-        <label for="amount">amount:</label>
+        <label for="amount">Amount:</label>
         <input type="number" name="amount" id />
         <br />
-        <label for="tax-value">tax value:</label>
+        <label for="tax-value">Tax Value:</label>
         <input disabled type="number" name="tax-value" id />
         <br />
-        <label for="unit-price">unit-price:</label>
+        <label for="unit-price">Unit Price:</label>
         <input disabled type="number" name="unit-price" id />
         <br />
-        <button>add product</button>
+        <button>Add Product</button>
       </div>
 
       <div class="info-products">
         <div class="table-index">
           <table>
             <tr>
-              <th>product</th>
-              <th>unit price</th>
-              <th>amount</th>
-              <th>total</th>
+              <th>Product</th>
+              <th>Unit Price</th>
+              <th>Amount</th>
+              <th>Total</th>
             </tr>
 
             <tr>
-              <td>rice</td>
-              <td>$20</td>
+              <td>Rice</td>
+              <td>$20.00</td>
               <td>2</td>
-              <td>40.00</td>
-              <td><button>delete</button></td>
+              <td>$40.00</td>
+              <td><button>Delete</button></td>
             </tr>
             <tr>
-              <td>beans</td>
-              <td>$9</td>
+              <td>Beans</td>
+              <td>$9.00</td>
               <td>1</td>
-              <td>9.00</td>
-              <td><button>delete</button></td>
+              <td>$9.00</td>
+              <td><button>Delete</button></td>
               
             </tr>
           </table>
           <br />
         </div>
-        <label for="tax">tax:</label>
+        <label for="tax">Tax:</label>
         <input placeholder="$3.00" disabled ="number" name=tax" id="">
         <br />
-        <label for="total">total:</label>
+        <label for="total">Total:</label>
         <input placeholder="$49.00" disabled type="number" name=total" id="">
         <br>
-        <button>cancel</button> <button>finish</button>
+        <button>Cancel</button> <button>Finish</button>
       </div>
     </div>
   </body>

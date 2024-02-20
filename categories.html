@@ -1,58 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categories</title>
+  </head>
+  <body>
     <div class="header">
-        <h1>categories</h1>
-        <nav>
-          <ul>
-            <li><a href="index.html">home</a></li>
-            <li><a href="products.html">products</a></li>
-            <li><a href="categories.html">categories</a></li>
-            <li><a href="history.html">history</a></li>
-          </ul>
-        </nav>
+      <h1>Categories</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="history.html">History</a></li>
+      </ul>
+    </div>
+
+    <div class="main-categories">
+      <label for="category-name">Category Name:</label>
+      <input type="text" name="category-name" id />
+
+      <br />
+      <label for="tax">Tax:</label>
+      <input type="number" name="tax" id />
+      <br />
+      <button>Add Category</button>
+
+      <div class="table-categories">
+        <table>
+          <tr>
+            <th>Code</th>
+            <th>Category</th>
+            <th>Tax</th>
+          </tr>
+
+          <tr>
+            <td>001</td>
+            <td>Food</td>
+            <td>10%</td>
+            <td><button>Delete</button></td>
+          </tr>
+          <tr>
+            <td>002</td>
+            <td>Eletro</td>
+            <td>60%</td>
+            <td><button>Delete</button></td>
+          </tr>
+        </table>
+        <br />
       </div>
-
-      <div class="main-categories">
-        <label for="category-name">category name:</label>
-        <input type="text" name="category-name" id />
-    
-        <br>
-        <label for="tax">tax:</label>
-        <input type="number" name="tax" id />
-        <br>
-        <button>add category</button>
-
-        <div class="table-categories">
-          <table>
-            <tr>
-              <th>code</th>
-              <th>category</th>
-              <th>tax</th>
-            </tr>
-
-            <tr>
-              <td>001</td>
-              <td>food</td>
-              <td>10%</td>
-              <td><button>delete</button></td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td>eletro</td>
-              <td>60%</td>
-              <td><button>delete</button></td>
-              
-            </tr>
-          </table>
-          <br />
-        </div>
-      </div>
-
-</body>
+    </div>
+  </body>
 </html>
