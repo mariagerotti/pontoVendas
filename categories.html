@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <title>Categories</title>
   </head>
@@ -18,15 +18,16 @@
       </ul>
     </div>
 
-    <div class="main-categories">
-      <label for="category-name">Category Name:</label>
-      <input type="text" name="category-name" id />
+    <div class="main main-categories">
 
-      <br />
-      <label for="tax">Tax:</label>
-      <input type="number" name="tax" id />
-      <br />
-      <button>Add Category</button>
+      <div class="inputs-categories">
+
+        <input placeholder="Category Name" type="text" name="category-name" id="name-categories"/>
+  
+        <input placeholder="Tax" type="number" name="tax" id="tax-categories"/>
+        <button class="add-categories">Add Category</button>
+      </div>
+
 
       <div class="table-categories">
         <table>
@@ -49,7 +50,6 @@
             <td><button>Delete</button></td>
           </tr>
         </table>
-        <br />
       </div>
     </div>
   </body>
