@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>suite store</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">home</a></li>
+          <li><a href="products.html">products</a></li>
+          <li><a href="categories.html">categories</a></li>
+          <li><a href="history.html">history</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <main>
+      <div class="add-products">
+        <label for="product">product</label>
+        dropdown
+        <br />
+        <label for="amount">amount</label>
+        <input type="number" name="amount" id />
+        <br />
+        <label for="tax-value">tax value:</label>
+        <input disabled type="number" name="tax-value" id />
+        <br />
+        <label for="unit-price">unit-price:</label>
+        <input disabled type="number" name="unit-price" id />
+        <br />
+        <button>add product</button>
+      </div>
+
+      <div class="info-products">
+        <div class="table-info">
+          <table>
+            <tr>
+              <th>product</th>
+              <th>unit price</th>
+              <th>amount</th>
+              <th>total</th>
+            </tr>
+
+            <tr>
+              <td>rice</td>
+              <td>$20</td>
+              <td>2</td>
+              <td>40.00</td>
+              <td><button>delete</button></td>
+            </tr>
+            <tr>
+              <td>beans</td>
+              <td>$9</td>
+              <td>1</td>
+              <td>9.00</td>
+              <td><button>delete</button></td>
+              
+            </tr>
+          </table>
+          <br />
+        </div>
+        <label for="tax">tax</label>
+        <input disabled ="number" name=tax" id="">
+        <br />
+        <label for="total">total</label>
+        <input disabled type="number" name=total" id="">
+        <br>
+        <button>cancel</button> <button>finish</button>
+      </div>
+    </main>
+  </body>
+</html>
