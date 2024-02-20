@@ -4,8 +4,8 @@
   font-family: "Inter", sans-serif;
 }
 
-.main{
-    margin: 10px;
+.main {
+  margin: 10px;
 }
 
 .header {
@@ -59,7 +59,7 @@
   flex-direction: column;
 }
 
-h1 {
+h1, h3 {
   margin-left: 12px;
 }
 
@@ -119,7 +119,7 @@ table {
   width: 100%;
 }
 
-th,
+ th,
 td {
   border-bottom: 0.1vw solid gray;
   text-align: left;
@@ -144,8 +144,36 @@ td:last-child {
   margin: 6px;
 }
 
-
-.add-categories{
-  
-    
+.inputs-products {
+  padding: 24px;
+  display: flex;
+  justify-content: space-evenly;
 }
+
+#name-products ,
+#amount-products ,
+#unit-price-products ,
+#category-products {
+    width: 18%;
+}
+
+
+.total-info{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    background-color: rgba(128, 128, 128, 0.205);
+    padding: 32px;
+    border-radius: 8px;
+}
+
+/*hr{
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+
+}*/

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <title>Products</title>
   </head>
@@ -16,59 +16,82 @@
         <li><a href="categories.html">Categories</a></li>
         <li><a href="history.html">History</a></li>
       </ul>
-  </div>
+    </div>
 
     <div class="main main-categories">
-      <label for="product-name">product name:</label>
-      <input type="text" name="product-name" id />
+      <div class="inputs-products">
+        <input
+          placeholder="product name"
+          type="text"
+          name="product-name"
+          id="name-products"
+        />
 
-      <br />
-      <label for="amount">amount:</label>
-      <input type="number" name="amount" id />
-      <br />
-      <label for="unit-price">unit-price:</label>
-      <input disabled type="number" name="unit-price" id="" />
-      <br />
-      <label for="category-data">category:</label>
-      <input list="category" id="category-data" name="add-wich-product" />
-      <datalist id="category">
-        <option value="Chocolate"></option>
-        <option value="Coconut"></option>
-        <option value="Mint"></option>
-        <option value="Strawberry"></option>
-        <option value="Vanilla"></option>
-      </datalist>
-      <br />
-      <button>add product</button>
+        <input
+          placeholder="amount"
+          type="number"
+          name="amount"
+          id="amount-products"
+        />
+
+        <input
+          disabled
+          placeholder="unit price"
+          type="number"
+          name="unit-price"
+          id="unit-price-products"
+        />
+
+        <input
+          placeholder="category"
+          list="category"
+          id="category-products"
+          name="add-wich-product"
+        />
+        <datalist id="category">
+          <option value="beans"></option>
+          <option value="coconut"></option>
+          <option value="potato"></option>
+          <option value="rice"></option>
+          <option value="apple"></option>
+        </datalist>
+
+        <button>Add Product</button>
+      </div>
 
       <div class="table-categories">
         <table>
-          <tr>
-            <th>code</th>
-            <th>product</th>
-            <th>amount</th>
-            <th>unit price</th>
-            <th>category</th>
-          </tr>
+          <thead>
+            <tr>
+              <th>code</th>
+              <th>product</th>
+              <th>amount</th>
+              <th>unit price</th>
+              <th>category</th>
+              <th></th>
 
-          <tr>
-            <td>001</td>
-            <td>rice</td>
-            <td>10</td>
-            <td>$20.00</td>
-            <td>food</td>
-            <td><button>delete</button></td>
-          </tr>
-          <tr>
-            <td>002</td>
-            <td>beans</td>
-            <td>1</td>
-            <td>$9.00</td>
-            <td>food</td>
-            <td><button>delete</button></td>
-          </tr>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>rice</td>
+              <td>10</td>
+              <td>$20.00</td>
+              <td>food</td>
+              <td><button>delete</button></td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>beans</td>
+              <td>1</td>
+              <td>$9.00</td>
+              <td>food</td>
+              <td><button>delete</button></td>
+            </tr>
+          </tbody>
         </table>
-        <br />
       </div>
     </div>
   </body>
