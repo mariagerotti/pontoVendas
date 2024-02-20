@@ -1,11 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <div class="header">
+      <h1>products</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">home</a></li>
+          <li><a href="products.html">products</a></li>
+          <li><a href="categories.html">categories</a></li>
+          <li><a href="history.html">history</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="main-categories">
+      <label for="product-name">product name:</label>
+      <input type="text" name="product-name" id />
+
+      <br />
+      <label for="amount">amount:</label>
+      <input type="number" name="amount" id />
+      <br />
+      <label for="unit-price">unit-price:</label>
+      <input disabled type="number" name="unit-price" id="" />
+      <br />
+      <label for="category-data">category:</label>
+      <input list="category" id="category-data" name="add-wich-product" />
+      <datalist id="category">
+        <option value="Chocolate"></option>
+        <option value="Coconut"></option>
+        <option value="Mint"></option>
+        <option value="Strawberry"></option>
+        <option value="Vanilla"></option>
+      </datalist>
+      <br />
+      <button>add product</button>
+
+      <div class="table-categories">
+        <table>
+          <tr>
+            <th>code</th>
+            <th>product</th>
+            <th>amount</th>
+            <th>unit price</th>
+            <th>category</th>
+          </tr>
+
+          <tr>
+            <td>001</td>
+            <td>rice</td>
+            <td>10</td>
+            <td>$20.00</td>
+            <td>food</td>
+            <td><button>delete</button></td>
+          </tr>
+          <tr>
+            <td>002</td>
+            <td>beans</td>
+            <td>1</td>
+            <td>$9.00</td>
+            <td>food</td>
+            <td><button>delete</button></td>
+          </tr>
+        </table>
+        <br />
+      </div>
+    </div>
+  </body>
 </html>

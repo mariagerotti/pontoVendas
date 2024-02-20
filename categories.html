@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>categories store</h1>
+        <h1>categories</h1>
         <nav>
           <ul>
             <li><a href="index.html">home</a></li>
@@ -18,11 +18,41 @@
         </nav>
       </div>
 
-    <label for="category-name">category name</label>
-    <input type="text" name="category-name" id />
+      <div class="main-categories">
+        <label for="category-name">category name:</label>
+        <input type="text" name="category-name" id />
+    
+        <br>
+        <label for="tax">tax:</label>
+        <input type="number" name="tax" id />
+        <br>
+        <button>add category</button>
 
-    <br>
-    <label for="tax">tax</label>
-    <input type="number" name="tax" id />
+        <div class="table-categories">
+          <table>
+            <tr>
+              <th>code</th>
+              <th>category</th>
+              <th>tax</th>
+            </tr>
+
+            <tr>
+              <td>001</td>
+              <td>food</td>
+              <td>10%</td>
+              <td><button>delete</button></td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>eletro</td>
+              <td>60%</td>
+              <td><button>delete</button></td>
+              
+            </tr>
+          </table>
+          <br />
+        </div>
+      </div>
+
 </body>
 </html>

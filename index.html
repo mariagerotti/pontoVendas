@@ -19,12 +19,20 @@
       </nav>
     </div>
 
-    <main>
+    <div class="main-index">
       <div class="add-products">
-        <label for="product">product</label>
-        dropdown
+        <label for="product-data">product:</label>
+        <input list="product" id="product-data" name="add-wich-product" />
+        <datalist id="product">
+          <option value="Chocolate"></option>
+          <option value="Coconut"></option>
+          <option value="Mint"></option>
+          <option value="Strawberry"></option>
+          <option value="Vanilla"></option>
+        </datalist>
+        
         <br />
-        <label for="amount">amount</label>
+        <label for="amount">amount:</label>
         <input type="number" name="amount" id />
         <br />
         <label for="tax-value">tax value:</label>
@@ -37,7 +45,7 @@
       </div>
 
       <div class="info-products">
-        <div class="table-info">
+        <div class="table-index">
           <table>
             <tr>
               <th>product</th>
@@ -64,14 +72,14 @@
           </table>
           <br />
         </div>
-        <label for="tax">tax</label>
-        <input disabled ="number" name=tax" id="">
+        <label for="tax">tax:</label>
+        <input placeholder="$3.00" disabled ="number" name=tax" id="">
         <br />
-        <label for="total">total</label>
-        <input disabled type="number" name=total" id="">
+        <label for="total">total:</label>
+        <input placeholder="$49.00" disabled type="number" name=total" id="">
         <br>
         <button>cancel</button> <button>finish</button>
       </div>
-    </main>
+    </div>
   </body>
 </html>
