@@ -1,65 +1,62 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Suite Store</title>
-  </head>
 
-  <body>
-    <div class="header">
-      <h1>Suite Store</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="categories.html">Categories</a></li>
-        <li><a href="history.html">History</a></li>
-      </ul>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="./main.js"></script>
+  <title>Suite Store</title>
+</head>
 
-    <div class="main main-index">
-      <div class="half add-products">
-        <input
-          placeholder="Product"
-          list="product"
-          id="product-data"
-          name="add-wich-product"
-        />
-        <datalist id="product">
-          <option value="beans"></option>
-          <option value="coconut"></option>
-          <option value="potato"></option>
-          <option value="rice"></option>
-          <option value="apple"></option>
-        </datalist>
+<body>
 
-        <div class="amount-tax-price">
-          <input placeholder="Amount" type="number" name="amount" id />
+  <div class="header">
+    <h1>Suite Store</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+  </div>
 
-          <input placeholder="Tax" type="number" name="tax-value" id />
+  <div class="main main-index">
+    <div class="half add-products">
+      <input placeholder="Product" list="product" id="product-data" name="add-wich-product" />
+      <datalist id="product">
+        <option value="beans"></option>
+        <option value="coconut"></option>
+        <option value="potato"></option>
+        <option value="rice"></option>
+        <option value="apple"></option>
+      </datalist>
 
-          <input
-            disabled
-            placeholder="Price"
-            type="number"
-            name="unit-price"
-            id
-          />
-        </div>
+      <div class="amount-tax-price">
+        <input placeholder="Amount" type="number" name="amount" id />
 
-        <button class="secundary-button">Add Product</button>
+        <input placeholder="Tax" type="number" name="tax-value" id />
+
+        <input disabled placeholder="Price" type="number" name="unit-price" id />
       </div>
 
-      <div class="half info-products">
-        <div class="table-index">
-          <table>
+      <button class="secundary-button">Add Product</button>
+    </div>
+
+    <div class="half info-products">
+      <div class="table-index">
+        <table>
+          <thead>
+
             <tr>
               <th>Product</th>
               <th>Price</th>
               <th>Amount</th>
               <th>Total</th>
+
             </tr>
+          </thead>
+          <tbody>
 
             <tr>
               <td>Rice</td>
@@ -76,22 +73,22 @@
             </tr>
 
             <tr></tr>
-          </table>
-        </div>
-        <div class="total-tax">
-          <label for="tax">Tax:</label>
-          <input placeholder="$3.00" disabled ="number" name=tax" id="tax">
+          </tbody>
+        </table>
+      </div>
+      <div class="total-tax">
+        <label for="tax">Tax:</label>
+        <input placeholder="$3.00" disabled="number" name=tax" id="tax">
 
-          <label for="total">Total:</label>
-          <input placeholder="$49.00" disabled type="number" name=total"
-          id="total">
-        </div>
+        <label for="total">Total:</label>
+        <input placeholder="$49.00" disabled type="number" name=total" id="total">
+      </div>
 
-        <div class="finish-add">
-          <button class="primary-button">Cancel</button>
-          <button class="finish-button">Finish</button>
-        </div>
+      <div class="finish-add">
+        <button class="primary-button">Cancel</button>
+        <button class="finish-button">Finish</button>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </html>

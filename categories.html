@@ -1,41 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
 
-    <title>Categories</title>
-  </head>
-  <body>
-    <div class="header">
-      <h1>Categories</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="categories.html">Categories</a></li>
-        <li><a href="history.html">History</a></li>
-      </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+
+  <title>Categories</title>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Categories</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+  </div>
+
+  <div class="main main-categories">
+
+    <div class="inputs-categories">
+
+      <input placeholder="Category Name" type="text" name="category-name" id="name-categories" />
+
+      <input placeholder="Tax" type="number" name="tax" id="tax-categories" />
+      <button class="add-categories">Add Category</button>
     </div>
 
-    <div class="main main-categories">
 
-      <div class="inputs-categories">
+    <div class="table-categories">
+      <table>
+        <thead>
 
-        <input placeholder="Category Name" type="text" name="category-name" id="name-categories"/>
-  
-        <input placeholder="Tax" type="number" name="tax" id="tax-categories"/>
-        <button class="add-categories">Add Category</button>
-      </div>
-
-
-      <div class="table-categories">
-        <table>
           <tr>
             <th>Code</th>
             <th>Category</th>
             <th>Tax</th>
+            <th></th>
           </tr>
+        </thead>
+        <tbody>
 
           <tr>
             <td>001</td>
@@ -49,8 +56,10 @@
             <td>60%</td>
             <td><button>Delete</button></td>
           </tr>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
