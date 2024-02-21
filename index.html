@@ -1,95 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./js/index.js" defer></script>
+    <title>Suite Store</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="main.js" defer></script>
-  <title>Suite Store</title>
-</head>
+  <body>
+    <div class="header">
+      <h1>Suite Store</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="history.html">History</a></li>
+      </ul>
+    </div>
 
-<body>
+    <div class="main main-index" id="mainIndex">
+      <form class="half add-products" id="addProduct">
+        <input
+          required
+          placeholder="Product"
+          list="product"
+          id="productName"
+          name="add-wich-product"
+          data-index="new"
+        />
+        <datalist id="product">
+          <option value="beans"></option>
+          <option value="coconut"></option>
+          <option value="potato"></option>
+          <option value="rice"></option>
+          <option value="apple"></option>
+        </datalist>
 
-  <div class="header">
-    <h1>Suite Store</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="categories.html">Categories</a></li>
-      <li><a href="history.html">History</a></li>
-    </ul>
-  </div>
+        <div class="amount-tax-price">
+          <input
+            placeholder="Amount"
+            type="number"
+            name="amount"
+            id="amount"
+            required
+          />
 
-  <div class="main main-index" id="mainIndex">
-    <form class="half add-products" id="addProduct">
-      <input required placeholder="Product" list="product" id="productName" name="add-wich-product" />
-      <datalist id="product">
-        <option value="beans"></option>
-        <option value="coconut"></option>
-        <option value="potato"></option>
-        <option value="rice"></option>
-        <option value="apple"></option>
-      </datalist>
+          <input
+            placeholder="Tax"
+            type="number"
+            name="tax-value"
+            id="tax"
+            step="0.01"
+            required
+          />
 
-      <div class="amount-tax-price">
-        <input placeholder="Amount" type="number" name="amount" id="amount" required />
+          <input
+            placeholder="Price"
+            type="number"
+            name="unit-price"
+            id="price"
+            required
+          />
+        </div>
 
-        <input placeholder="Tax" type="number" name="tax-value" id="tax" required />
+        <button class="secundary-button" id="buttonCreateProduct">
+          Add Product
+        </button>
+      </form>
 
-        <input placeholder="Price" type="number" name="unit-price" id="price" required />
-      </div>
+      <div class="half info-products">
+        <div class="table-index">
+          <table id="tableIndex">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="total-tax">
+          <label for="tax">Tax:</label>
+          <input placeholder="$3.00" disabled="number" name=tax" id="final-tax">
 
-      <button class="secundary-button" id="buttonCreateProduct">Add Product</button>
-    </form>
+          <label for="total">Total:</label>
+          <input placeholder="$49.00" disabled type="number" name=total"
+          id="total">
+        </div>
 
-    <div class="half info-products">
-      <div class="table-index">
-        <table id="tableIndex">
-          <thead>
-
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Amount</th>
-              <th>Total</th>
-
-            </tr>
-          </thead>
-          <tbody>
-
-            <tr>
-              <td>Rice</td>
-              <td>$20.00</td>
-              <td>2</td>
-              <td>$40.00</td>
-            </tr>
-
-            <tr>
-              <td>Beans</td>
-              <td>$9.00</td>
-              <td>1</td>
-              <td>$9.00</td>
-            </tr>
-
-            <tr></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="total-tax">
-        <label for="tax">Tax:</label>
-        <input placeholder="$3.00" disabled="number" name=tax" id="final-tax">
-
-        <label for="total">Total:</label>
-        <input placeholder="$49.00" disabled type="number" name=total" id="total">
-      </div>
-
-      <div class="finish-add">
-        <button class="primary-button" id="cancel">Cancel</button>
-        <button class="finish-button">Finish</button>
+        <div class="finish-add">
+          <button class="primary-button" id="cancel">Cancel</button>
+          <button class="finish-button">Finish</button>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

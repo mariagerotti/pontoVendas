@@ -30,9 +30,14 @@ const saveProduct = () => {
       tax: document.getElementById("tax").value,
       price: document.getElementById("price").value,
     };
-    createProduct(product);
-    clearFields();
-    updateTable();
+    const index = document.getElementById("productName").dataset.index;
+    if (index == "new") {
+      createProduct(product);
+      clearFields();
+    } else {
+      updateProduct(index, product);
+      updateTable();
+    }
   }
 };
 
@@ -43,8 +48,8 @@ const createRow = (product) => {
   <td>${product.amount}</td>
   <td>${product.tax}</td>
   <td>${product.price}</td>
-  <td><button class="secundary-button" data-action="edit">Edit</td>
-  <td><button class="secundary-button" data-action="delete">Delete</td>
+  <td><button class="secundary-button" onclick="editDelete()">Edit</td>
+  <td><button class="secundary-button" onclick="deleteProduct()">Delete</td>
   `;
   document.querySelector("#tableIndex>tbody").appendChild(newRow);
 };
@@ -60,9 +65,37 @@ const updateTable = () => {
   dbProduct.forEach(createRow);
 };
 
+const fillFields = (product) => {
+  document.getElementById("productName").value = product.productName;
+  document.getElementById("amount").value = product.amount;
+  document.getElementById("tax").value = product.tax;
+  document.getElementById("price").value = product.price;
+  document.getElementById("productName").dataset.index = client.index;
+};
+
+const editProduct = (index) => {
+  const product = getLocalStorage()[index];
+  client.index = index;
+  fillFields(product);
+};
+
 const editDelete = (e) => {
   if (e.target.type == "button") {
+    const [action, index] = e.target.id.split("-");
+    if (action == "edit") {
+      editProduct(index);
+    } else {
+      const product = getLocalStorage()[index];
+      const response = confirm(
+        `deseja realmente excluir o produto ${product.productName}`
+      );
+      if (response) {
+        deleteProduct(index);
+        updateTable();
+      }
+    }
   }
+  window.location.reload();
 };
 
 updateTable();
