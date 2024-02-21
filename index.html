@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-  <script src="./main.js"></script>
+  <script src="main.js" defer></script>
   <title>Suite Store</title>
 </head>
 
@@ -21,9 +21,9 @@
     </ul>
   </div>
 
-  <div class="main main-index">
-    <div class="half add-products">
-      <input placeholder="Product" list="product" id="product-data" name="add-wich-product" />
+  <div class="main main-index" id="mainIndex">
+    <form class="half add-products" id="addProduct">
+      <input required placeholder="Product" list="product" id="productName" name="add-wich-product" />
       <datalist id="product">
         <option value="beans"></option>
         <option value="coconut"></option>
@@ -33,15 +33,15 @@
       </datalist>
 
       <div class="amount-tax-price">
-        <input placeholder="Amount" type="number" name="amount" id />
+        <input placeholder="Amount" type="number" name="amount" id="amount" required />
 
-        <input placeholder="Tax" type="number" name="tax-value" id />
+        <input placeholder="Tax" type="number" name="tax-value" id="tax" required />
 
-        <input disabled placeholder="Price" type="number" name="unit-price" id />
+        <input placeholder="Price" type="number" name="unit-price" id="price" required />
       </div>
 
-      <button class="secundary-button">Add Product</button>
-    </div>
+      <button class="secundary-button" id="buttonCreateProduct">Add Product</button>
+    </form>
 
     <div class="half info-products">
       <div class="table-index">
@@ -78,17 +78,18 @@
       </div>
       <div class="total-tax">
         <label for="tax">Tax:</label>
-        <input placeholder="$3.00" disabled="number" name=tax" id="tax">
+        <input placeholder="$3.00" disabled="number" name=tax" id="final-tax">
 
         <label for="total">Total:</label>
         <input placeholder="$49.00" disabled type="number" name=total" id="total">
       </div>
 
       <div class="finish-add">
-        <button class="primary-button">Cancel</button>
+        <button class="primary-button" id="cancel">Cancel</button>
         <button class="finish-button">Finish</button>
       </div>
     </div>
   </div>
 </body>
+
 </html>

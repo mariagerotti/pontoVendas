@@ -1,16 +1,47 @@
+const getLocalStorage = () =>
+  JSON.parse(localStorage.getItem("db_product")) ?? [];
+const setLocalStorage = (dbProduct) =>
+  localStorage.setItem("db_product", JSON.stringify(dbProduct));
 
-const tempProduct ={
-product: "potato",
-price:"10",
-amount: "1",
-total: "10"
-}
+const createProduct = (product) => {
+  const dbProduct = getLocalStorage();
+  dbProduct.push(product);
+  setLocalStorage(dbProduct);
+};
+const isValidField = () => {
+  return document.getElementById("addProduct").reportValidity();
+};
+//interação com layout
+const saveProduct = () => {
+  if (isValidField()) {
+    const product = {
+      productName: document.getElementById("productName").value,
+      amount: document.getElementById("amount").value,
+      tax: document.getElementById("tax").value,
+      price: document.getElementById("price").value,
+    };
+    createProduct(product);
+    console.log("cadastrando produto");
+  }
+};
 
 //eventos
 
+
 //crud
-const addProduct = (product) =>{
-    const db_product = JSON.parse(localStorage.getItem("db_client"))
-    db_product.push(product)
-    localStorage.setItem("db_product", JSON.stringify(db_product))
-}
+const deleteProduct = (index) => {
+  const dbProduct = getLocalStorage();
+  dbProduct.splice(index, 1);
+  setLocalStorage(dbProduct);
+};
+
+const updateProduct = (index, product) => {
+  const dbProduct = getLocalStorage();
+  dbProduct[index] = product;
+  setLocalStorage(dbProduct);
+};
+
+
+document
+  .getElementById("buttonCreateProduct")
+  .addEventListener("click", saveProduct);
