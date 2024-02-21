@@ -11,6 +11,16 @@ const createProduct = (product) => {
 const isValidField = () => {
   return document.getElementById("addProduct").reportValidity();
 };
+
+const clearFields = () => {
+  const fields = document.getElementById(
+    "productName",
+    "amount",
+    "tax",
+    "price"
+  );
+  fields.foreEach((field) => (field.value = ""));
+};
 //interação com layout
 const saveProduct = () => {
   if (isValidField()) {
@@ -21,12 +31,43 @@ const saveProduct = () => {
       price: document.getElementById("price").value,
     };
     createProduct(product);
-    console.log("cadastrando produto");
+    clearFields();
+    updateTable();
   }
 };
 
-//eventos
+const createRow = (product) => {
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = ` 
+  <td>${product.productName}</td>
+  <td>${product.amount}</td>
+  <td>${product.tax}</td>
+  <td>${product.price}</td>
+  <td><button class="secundary-button" data-action="edit">Edit</td>
+  <td><button class="secundary-button" data-action="delete">Delete</td>
+  `;
+  document.querySelector("#tableIndex>tbody").appendChild(newRow);
+};
 
+const clearTable = () => {
+  const rows = document.querySelectorAll("#tableIndex>tbody tr");
+  rows.forEach((row) => row.parentNode.removeChild(row));
+};
+
+const updateTable = () => {
+  const dbProduct = getLocalStorage();
+  clearTable();
+  dbProduct.forEach(createRow);
+};
+
+const editDelete = (e) => {
+  if (e.target.type == "button") {
+  }
+};
+
+updateTable();
+
+//eventos
 
 //crud
 const deleteProduct = (index) => {
@@ -41,7 +82,10 @@ const updateProduct = (index, product) => {
   setLocalStorage(dbProduct);
 };
 
-
 document
   .getElementById("buttonCreateProduct")
   .addEventListener("click", saveProduct);
+
+document
+  .querySelector("#tableIndex>tbody")
+  .addEventListener("click", editDelete);
