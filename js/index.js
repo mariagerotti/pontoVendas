@@ -70,12 +70,13 @@ const fillFields = (product) => {
   document.getElementById("amount").value = product.amount;
   document.getElementById("tax").value = product.tax;
   document.getElementById("price").value = product.price;
-  document.getElementById("productName").dataset.index = client.index;
+  document.getElementById("productName").dataset.index = product.index;
 };
+//crud
 
 const editProduct = (index) => {
   const product = getLocalStorage()[index];
-  client.index = index;
+  product.index = index;
   fillFields(product);
 };
 
@@ -100,9 +101,6 @@ const editDelete = (e) => {
 
 updateTable();
 
-//eventos
-
-//crud
 const deleteProduct = (index) => {
   const dbProduct = getLocalStorage();
   dbProduct.splice(index, 1);
@@ -115,6 +113,7 @@ const updateProduct = (index, product) => {
   setLocalStorage(dbProduct);
 };
 
+//eventos
 document
   .getElementById("buttonCreateProduct")
   .addEventListener("click", saveProduct);

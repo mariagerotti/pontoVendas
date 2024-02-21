@@ -153,10 +153,10 @@ td:last-child {
   justify-content: space-evenly;
 }
 
-#name-products,
-#amount-products,
-#unit-price-products,
-#category-products {
+#nameProductsProd,
+#amountProducts,
+#unitPriceProducts,
+#categoryProducts {
   width: 18%;
 }
 

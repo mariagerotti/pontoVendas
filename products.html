@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./js/products.js"></script>
+    <script src="./js/products.js" defer></script>
     <link rel="stylesheet" href="style.css" />
 
     <title>Products</title>
   </head>
+
   <body>
     <div class="header">
       <h1>Products</h1>
@@ -20,33 +21,37 @@
     </div>
 
     <div class="main main-categories">
-      <div class="inputs-products">
+      <form class="inputs-products" id="inputsProducts">
         <input
           placeholder="Product Name"
           type="text"
           name="product-name"
-          id="name-products"
+          id="nameProductsProd"
+          data-index="new"
+          required
         />
 
         <input
+          required
           placeholder="Amount"
           type="number"
           name="amount"
-          id="amount-products"
+          id="amountProducts"
         />
 
         <input
-          disabled
+          required
           placeholder="Unit Price"
           type="number"
           name="unit-price"
-          id="unit-price-products"
+          id="unitPriceProducts"
         />
 
         <input
+          required
           placeholder="Category"
           list="category"
-          id="category-products"
+          id="categoryProducts"
           name="add-wich-product"
         />
         <datalist id="category">
@@ -57,11 +62,16 @@
           <option value="apple"></option>
         </datalist>
 
-        <button>Add Product</button>
-      </div>
+        <button
+          id="btnAddProduct
+        "
+        >
+          Add Product
+        </button>
+      </form>
 
-      <div class="table-categories">
-        <table>
+      <div class="table-products">
+        <table id="tableProducts">
           <thead>
             <tr>
               <th>Code</th>
@@ -73,24 +83,7 @@
             </tr>
           </thead>
 
-          <tbody>
-            <tr>
-              <td>001</td>
-              <td>rice</td>
-              <td>10</td>
-              <td>$20.00</td>
-              <td>food</td>
-              <td><button>Delete</button></td>
-            </tr>
-            <tr>
-              <td>002</td>
-              <td>beans</td>
-              <td>1</td>
-              <td>$9.00</td>
-              <td>food</td>
-              <td><button>Delete</button></td>
-            </tr>
-          </tbody>
+          <tbody></tbody>
         </table>
       </div>
     </div>
