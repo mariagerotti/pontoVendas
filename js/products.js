@@ -30,14 +30,7 @@ const saveProduct = () => {
       unitPriceProducts: document.getElementById("unitPriceProducts").value,
       categoryProducts: document.getElementById("categoryProducts").value,
     };
-    const index = document.getElementById("nameProductsProd").nameProductsProd.index;
-    if (index == "new") {
-      createProduct(product);
-      clearFields();
-    } else {
-      updateProduct(index, product);
-      updateTable();
-    }
+    createProduct(product);
   }
 };
 
@@ -51,7 +44,6 @@ const createRow = (product) => {
   <td><button onclick="deleteProduct()">Delete</td>
   `;
   document.querySelector("#tableProducts>tbody").appendChild(newRow);
-  
 };
 
 const clearTable = () => {
@@ -68,17 +60,12 @@ const updateTable = () => {
 const fillFields = (product) => {
   document.getElementById("nameProductsProd").value = product.nameProductsProd;
   document.getElementById("amountProducts").value = product.amountProducts;
-  document.getElementById("unitPriceProducts").value = product.unitPriceProducts;
+  document.getElementById("unitPriceProducts").value =
+    product.unitPriceProducts;
   document.getElementById("categoryProducts").value = product.categoryProducts;
   document.getElementById("nameProductsProd").dataset.index = product.index;
 };
 //crud
-
-const editProduct = (index) => {
-  const product = getLocalStorage()[index];
-  product.index = index;
-  fillFields(product);
-};
 
 const editDelete = (e) => {
   if (e.target.type == "button") {
@@ -99,12 +86,11 @@ const editDelete = (e) => {
   window.location.reload();
 };
 
-updateTable();
-
 const deleteProduct = (index) => {
   const dbProduct = getLocalStorage();
   dbProduct.splice(index, 1);
   setLocalStorage(dbProduct);
+  window.location.reload();
 };
 
 const updateProduct = (index, product) => {
@@ -113,11 +99,4 @@ const updateProduct = (index, product) => {
   setLocalStorage(dbProduct);
 };
 
-//eventos
-document
-  .getElementById("btnAddProduct")
-  .addEventListener("click", saveProduct);
-
-document
-  .querySelector("#tableProducts>tbody")
-  .addEventListener("click", editDelete);
+updateTable();
