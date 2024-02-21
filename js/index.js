@@ -29,6 +29,7 @@ const saveProduct = () => {
       amount: document.getElementById("amount").value,
       tax: document.getElementById("tax").value,
       price: document.getElementById("price").value,
+      id: Math.random()
     };
     const index = document.getElementById("productName").dataset.index;
     if (index == "new") {
@@ -49,7 +50,7 @@ const createRow = (product) => {
   <td>${product.tax}</td>
   <td>${product.price}</td>
   <td><button class="secundary-button" onclick="editDelete()">Edit</td>
-  <td><button class="secundary-button" onclick="deleteProduct()">Delete</td>
+  <td><button class="secundary-button" onclick="deleteProduct(${product.id})">Delete</td>
   `;
   document.querySelector("#tableIndex>tbody").appendChild(newRow);
 };
@@ -91,7 +92,7 @@ const editDelete = (e) => {
         `deseja realmente excluir o produto ${product.productName}`
       );
       if (response) {
-        deleteProduct(index);
+        deleteProduct(product);
         updateTable();
       }
     }
@@ -101,10 +102,12 @@ const editDelete = (e) => {
 
 updateTable();
 
-const deleteProduct = (index) => {
+const deleteProduct = (id) => {
+  console.log(product);
   const dbProduct = getLocalStorage();
-  dbProduct.splice(index, 1);
-  setLocalStorage(dbProduct);
+  const newDbProduct = dbProduct.filter((item) => id !== item.id ) 
+  console.log(newDbProduct);
+  setLocalStorage(newDbProduct);
 };
 
 const updateProduct = (index, product) => {
