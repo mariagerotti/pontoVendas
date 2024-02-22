@@ -103,11 +103,10 @@ const editDelete = (e) => {
 updateTable();
 
 const deleteProduct = (id) => {
-  console.log(product);
   const dbProduct = getLocalStorage();
   const newDbProduct = dbProduct.filter((item) => id !== item.id ) 
-  console.log(newDbProduct);
   setLocalStorage(newDbProduct);
+  window.location.reload()
 };
 
 const updateProduct = (index, product) => {
@@ -124,3 +123,5 @@ document
 document
   .querySelector("#tableIndex>tbody")
   .addEventListener("click", editDelete);
+
+  document.querySelector('#product').appendChild

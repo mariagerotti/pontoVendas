@@ -1,12 +1,12 @@
 const getLocalStorage = () =>
-  JSON.parse(localStorage.getItem("db_product")) ?? [];
-const setLocalStorage = (dbProduct) =>
-  localStorage.setItem("db_product", JSON.stringify(dbProduct));
+  JSON.parse(localStorage.getItem("dbCategory")) ?? [];
+const setLocalStorage = (dbCategory) =>
+  localStorage.setItem("dbCategory", JSON.stringify(dbCategory));
 
-const createCategory = (product) => {
-  const dbProduct = getLocalStorage();
-  dbProduct.push(product);
-  setLocalStorage(dbProduct);
+const createCategory = (categories) => {
+  const dbCategory = getLocalStorage();
+  dbCategory.push(categories);
+  setLocalStorage(dbCategory);
 };
 const isValidField = () => {
   return document.getElementById("inputsCategories").reportValidity();
@@ -17,22 +17,24 @@ const clearFields = () => {
   fields.foreEach((field) => (field.value = ""));
 };
 //interação com layout
-const saveProduct = () => {
+const saveCategory = () => {
   if (isValidField()) {
-    const product = {
+    const categories = {
       nameCategories: document.getElementById("nameCategories").value,
       taxCategories: document.getElementById("taxCategories").value,
+      id: Math.random()
     };
-    createCategory(product);
+    createCategory(categories);
   }
 };
 
-const createRow = (product) => {
+const createRow = (categories) => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = ` 
-  <td>${product.nameCategories}</td>
-  <td>${product.taxCategories}</td>
-  <td><button onclick="deleteCategory()">Delete</td>
+  <td>${categories.id}</td>
+  <td>${categories.nameCategories}</td>
+  <td>${categories.taxCategories}</td>
+  <td><button onclick="deleteCategory(${categories.id})">Delete</td>
   `;
   document.getElementById("tableCategories").appendChild(newRow);
 };
@@ -43,15 +45,16 @@ const clearTable = () => {
 };
 
 const updateTable = () => {
-  const dbProduct = getLocalStorage();
+  const dbCategory = getLocalStorage();
   clearTable();
-  dbProduct.forEach(createRow);
+  dbCategory.forEach(createRow);
 };
 
-const fillFields = (product) => {
-  document.getElementById("nameCategories").value = product.nameCategories;
-  document.getElementById("taxCategories").value = product.taxCategories;
-  document.getElementById("nameCategories").dataset.index = product.index;
+const fillFields = (categories) => {
+  document.getElementById("nameCategories").value = categories.nameCategories;
+  document.getElementById("taxCategories").value = categories.taxCategories;
+  document.getElementById("nameCategories").dataset.index = categories.index;
+
 };
 //crud
 
@@ -61,9 +64,9 @@ const editDelete = (e) => {
     if (action == "edit") {
       editCategory(index);
     } else {
-      const product = getLocalStorage()[index];
+      const categories = getLocalStorage()[index];
       const response = confirm(
-        `deseja realmente excluir o produto ${product.nameCategories}`
+        `deseja realmente excluir o produto ${categories.nameCategories}`
       );
       if (response) {
         deleteCategory(index);
@@ -74,17 +77,17 @@ const editDelete = (e) => {
   window.location.reload();
 };
 
-const deleteCategory = (index) => {
-  const dbProduct = getLocalStorage();
-  dbProduct.splice(index, 1);
-  setLocalStorage(dbProduct);
+const deleteCategory = (id) => {
+  const dbCategory = getLocalStorage();
+  const newDbCategory = dbCategory.filter((item) => id !== item.id)
+  setLocalStorage(newDbCategory);
   window.location.reload();
 };
 
-const updateCategory = (index, product) => {
-  const dbProduct = getLocalStorage();
-  dbProduct[index] = product;
-  setLocalStorage(dbProduct);
+const updateCategory = (index, categories) => {
+  const dbCategory = getLocalStorage();
+  dbCategory[index] = categories;
+  setLocalStorage(dbCategory);
 };
 
 updateTable();
