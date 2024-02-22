@@ -1,14 +1,14 @@
 const getLocalStorage = () =>
-JSON.parse(localStorage.getItem("db_product")) ?? [];
+  JSON.parse(localStorage.getItem("db_product")) ?? [];
+
 const setLocalStorage = (dbProduct) =>
-localStorage.setItem("db_product", JSON.stringify(dbProduct));
+  localStorage.setItem("db_product", JSON.stringify(dbProduct));
 
 const getCategories = () =>
-JSON.parse(localStorage.getItem("db_categories")) ?? [];
+  JSON.parse(localStorage.getItem("db_categories")) ?? [];
 
-const setCart =(cart)=> localStorage.setItem('cart', JSON.stringify(cart))
-const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? []
-
+const setCart = (cart) => localStorage.setItem("cart", JSON.stringify(cart));
+const getCart = () => JSON.parse(localStorage.getItem("cart")) ?? [];
 
 const createRow = (product) => {
   const newRow = document.createElement("tr");
@@ -23,24 +23,24 @@ const createRow = (product) => {
   document.querySelector("#tbodyCart").appendChild(newRow);
 };
 
-const calculateTotalAndTax = () => {
-  const dbProduct = getLocalStorage();
-  let total = 0;
-  let tax = 0;
+// const calculateTotalAndTax = () => {
+//   const dbProduct = getLocalStorage();
+//   let total = 0;
+//   let tax = 0;
 
-  dbProduct.forEach((product) => {
-    const totalPrice = product.amount * product.price;
-    total += totalPrice;
-    tax += totalPrice * (product.tax / 100);
-  });
-  return { total, tax };
-};
+//   dbProduct.forEach((product) => {
+//     const totalPrice = product.amount * product.price;
+//     total += totalPrice;
+//     tax += totalPrice * (product.tax / 100);
+//   });
+//   return { total, tax };
+// };
 
-const updateTotalAndTaxFields = () => {
-  const { total, tax } = calculateTotalAndTax();
-  document.getElementById("final-tax").value = `$${tax.toFixed(2)}`;
-  document.getElementById("total").value = `$${(total + tax).toFixed(2)}`;
-};
+// const updateTotalAndTaxFields = () => {
+//   const { total, tax } = calculateTotalAndTax();
+//   document.getElementById("final-tax").value = `$${tax.toFixed(2)}`;
+//   document.getElementById("total").value = `$${(total + tax).toFixed(2)}`;
+// };
 
 const createProduct = (product) => {
   const cart = getCart();
@@ -82,12 +82,18 @@ const saveProduct = () => {
   }
 };
 
-
 const options = getLocalStorage();
+
+
+const selectElement = document.getElementById("productName");
 const optionsElement = options.map(
-  (option) => `<option value="">${option.productName}</option>`
+  (option) => { selectElement.innerHTML += `<option value="${option.productName}">${option.productName}</option>`;} 
+  
+  // `<option value="${option.productName}">${option.productName}</option>`
 );
+
 document.querySelector("#productName").innerHTML = optionsElement;
+const tableCartElement = document.querySelector("#tbodyCart");
 
 const clearTable = () => {
   const rows = document.querySelectorAll("#tableIndex>tbody tr");
@@ -131,11 +137,10 @@ const editDelete = (e) => {
       }
     }
   }
-  window.location.reload();
 };
 
 updateTable();
-updateTotalAndTaxFields();
+// updateTotalAndTaxFields();
 
 const deleteProduct = (id) => {
   const dbProduct = getLocalStorage();
@@ -150,6 +155,24 @@ const updateProduct = (index, product) => {
   dbProduct[index] = product;
   setLocalStorage(dbProduct);
   updateTotalAndTaxFields();
+};
+
+const handleClickAddToCart = () => {
+  const productId = document.querySelector("productName").value;
+  const product = getLocalStorage().find((item) => item.id == productId);
+  const fullProduct = {
+    ...product,
+    amount: (document.querySelector("#amount").innerHTML = optionsElement),
+  };
+  createProduct(fullProduct);
+  renderCart();
+  clearFields();
+};
+
+const renderCart = () => {
+  const cart = getCart();
+  tabelaCarrinhoElement.innerHTML = "";
+  cart.forEach(createRow);
 };
 
 //eventos
