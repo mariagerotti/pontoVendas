@@ -30,14 +30,10 @@
 
       <input required placeholder="Unit Price" type="number" name="unit-price" id="unitPriceProducts" />
 
-      <input required placeholder="Category" list="category" id="categoryProducts" name="add-wich-product" />
-      <select id="category">
-
+      <select required id="categoryProducts">
       </select>
 
-      <button onclick="saveProduct()">
-        Add Product
-      </button>
+      <button onclick="handleClickAddProduct()">Add Product</button>
     </form>
 
     <div class="table-products">
@@ -49,7 +45,6 @@
             <th>Amount</th>
             <th>Unit Price</th>
             <th>Category</th>
-
           </tr>
         </thead>
 

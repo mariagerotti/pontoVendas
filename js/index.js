@@ -1,34 +1,53 @@
 const getLocalStorage = () =>
-  JSON.parse(localStorage.getItem("db_product")) ?? [];
+JSON.parse(localStorage.getItem("db_product")) ?? [];
 const setLocalStorage = (dbProduct) =>
-  localStorage.setItem("db_product", JSON.stringify(dbProduct));
+localStorage.setItem("db_product", JSON.stringify(dbProduct));
 
-  const calculateTotalAndTax = () => {
-    const dbProduct = getLocalStorage();
-    let total = 0;
-    let tax = 0;
-    
-    dbProduct.forEach((product) => {
-      const totalPrice = product.amount * product.price;
-      total += totalPrice;
-      tax += totalPrice * (product.tax / 100);
-    });
-    return { total, tax };
-  };
-  
-  const updateTotalAndTaxFields = () => {
-    const { total, tax } = calculateTotalAndTax();
-    document.getElementById("final-tax").value = `$${tax.toFixed(2)}`;
-    document.getElementById("total").value = `$${(total + tax).toFixed(2)}`;
-  };
-  
-  
+const getCategories = () =>
+JSON.parse(localStorage.getItem("db_categories")) ?? [];
+
+const setCart =(cart)=> localStorage.setItem('cart', JSON.stringify(cart))
+const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? []
+
+
+const createRow = (product) => {
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = ` 
+  <td>${product.productName}</td>
+  <td>${product.amount}</td>
+  <td>${product.tax}</td>
+  <td>${product.price}</td>
+  <td><button class="secundary-button" onclick="editDelete()">Edit</td>
+  <td><button class="secundary-button" onclick="deleteProduct(${product.id})">Delete</td>
+  `;
+  document.querySelector("#tbodyCart").appendChild(newRow);
+};
+
+const calculateTotalAndTax = () => {
+  const dbProduct = getLocalStorage();
+  let total = 0;
+  let tax = 0;
+
+  dbProduct.forEach((product) => {
+    const totalPrice = product.amount * product.price;
+    total += totalPrice;
+    tax += totalPrice * (product.tax / 100);
+  });
+  return { total, tax };
+};
+
+const updateTotalAndTaxFields = () => {
+  const { total, tax } = calculateTotalAndTax();
+  document.getElementById("final-tax").value = `$${tax.toFixed(2)}`;
+  document.getElementById("total").value = `$${(total + tax).toFixed(2)}`;
+};
 
 const createProduct = (product) => {
-  const dbProduct = getLocalStorage();
-  dbProduct.push(product);
-  setLocalStorage(dbProduct);
+  const cart = getCart();
+  cart.push(product);
+  setCart(cart);
 };
+
 const isValidField = () => {
   return document.getElementById("addProduct").reportValidity();
 };
@@ -50,7 +69,7 @@ const saveProduct = () => {
       amount: document.getElementById("amount").value,
       tax: document.getElementById("tax").value,
       price: document.getElementById("price").value,
-      id: Math.random()
+      id: Math.random(),
     };
     const index = document.getElementById("productName").dataset.index;
     if (index == "new") {
@@ -63,18 +82,12 @@ const saveProduct = () => {
   }
 };
 
-const createRow = (product) => {
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = ` 
-  <td>${product.productName}</td>
-  <td>${product.amount}</td>
-  <td>${product.tax}</td>
-  <td>${product.price}</td>
-  <td><button class="secundary-button" onclick="editDelete()">Edit</td>
-  <td><button class="secundary-button" onclick="deleteProduct(${product.id})">Delete</td>
-  `;
-  document.querySelector("#tableIndex>tbody").appendChild(newRow);
-};
+
+const options = getLocalStorage();
+const optionsElement = options.map(
+  (option) => `<option value="">${option.productName}</option>`
+);
+document.querySelector("#productName").innerHTML = optionsElement;
 
 const clearTable = () => {
   const rows = document.querySelectorAll("#tableIndex>tbody tr");
@@ -121,17 +134,15 @@ const editDelete = (e) => {
   window.location.reload();
 };
 
-
 updateTable();
 updateTotalAndTaxFields();
 
-
 const deleteProduct = (id) => {
   const dbProduct = getLocalStorage();
-  const newDbProduct = dbProduct.filter((item) => id !== item.id) 
+  const newDbProduct = dbProduct.filter((item) => id !== item.id);
   setLocalStorage(newDbProduct);
   updateTotalAndTaxFields();
-  window.location.reload()
+  window.location.reload();
 };
 
 const updateProduct = (index, product) => {
@@ -144,13 +155,10 @@ const updateProduct = (index, product) => {
 //eventos
 document
   .getElementById("buttonCreateProduct")
-  .addEventListener("click", () => {
-    saveProduct();
-    updateTotalAndTaxFields();
-  });
+  .addEventListener("click", saveProduct);
 
 document
   .querySelector("#tableIndex>tbody")
   .addEventListener("click", editDelete);
 
-  document.querySelector('#product').appendChild
+// document.querySelector('#product').appendChild

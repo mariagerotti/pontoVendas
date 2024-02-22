@@ -21,16 +21,13 @@
 
     <div class="main main-index" id="mainIndex">
       <form class="half add-products" id="addProduct">
-        <input
+        <!-- <input
           required
           placeholder="Product"
-          list="product"
-          id="productName"
-          name="add-wich-product"
-          data-index="new"
-        />
-        <select id="product">
-          <option value=""></option>
+          list="product"    
+        /> -->
+        <select id="productName" name="add-wich-product" data-index="new">
+          <option id="optionIndex" disabled selected>Select your Product</option>
         </select>
 
         <div class="amount-tax-price">
@@ -43,20 +40,20 @@
           />
 
           <input
+            disabled
             placeholder="Tax"
             type="number"
             name="tax-value"
             id="tax"
             step="0.01"
-            required
           />
 
           <input
+            disabled
             placeholder="Price"
             type="number"
             name="unit-price"
             id="price"
-            required
           />
         </div>
 
@@ -76,16 +73,15 @@
                 <th>Total</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody id="tbodyCart"></tbody>
           </table>
         </div>
         <div class="total-tax">
           <label for="tax">Tax:</label>
-          <input  disabled="number" name=tax" id="final-tax">
+          <input disabled type="number" name=tax" id="final-tax">
 
           <label for="total">Total:</label>
-          <input  disabled type="number" name=total"
-          id="total">
+          <input disabled type="number" name=total" id="total">
         </div>
 
         <div class="finish-add">

@@ -98,7 +98,7 @@ button {
   width: 160px;
 }
 
-input {
+input, select, option {
   font-weight: bolder;
   padding: 12px;
   border: 0.1vw solid rgba(128, 128, 128, 0.582);

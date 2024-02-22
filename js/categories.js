@@ -1,13 +1,15 @@
 const getLocalStorage = () =>
-  JSON.parse(localStorage.getItem("dbCategory")) ?? [];
-const setLocalStorage = (dbCategory) =>
-  localStorage.setItem("dbCategory", JSON.stringify(dbCategory));
+  JSON.parse(localStorage.getItem("db_categories")) ?? [];
+
+const setLocalStorage = (dbCategories) =>
+  localStorage.setItem("db_categories", JSON.stringify(dbCategories));
 
 const createCategory = (categories) => {
   const dbCategory = getLocalStorage();
   dbCategory.push(categories);
   setLocalStorage(dbCategory);
 };
+
 const isValidField = () => {
   return document.getElementById("inputsCategories").reportValidity();
 };
