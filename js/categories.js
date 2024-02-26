@@ -57,26 +57,6 @@ const fillFields = (categories) => {
   document.getElementById("taxCategories").value = categories.taxCategories;
   document.getElementById("nameCategories").dataset.index = categories.index;
 };
-//crud
-
-// const editDelete = (e) => {
-//   if (e.target.type == "button") {
-//     const [action, index] = e.target.id.split("-");
-//     if (action == "edit") {
-//       editCategory(index);
-//     } else {
-//       const categories = getLocalStorage()[index];
-//       const response = confirm(
-//         `deseja realmente excluir o produto ${categories.nameCategories}`
-//       );
-//       if (response) {
-//         deleteCategory(index);
-//         updateTable();
-//       }
-//     }
-//   }
-//   window.location.reload();
-// };
 
 const deleteCategory = (id) => {
   const dbCategory = getLocalStorage();

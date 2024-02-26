@@ -19,7 +19,6 @@ const createRow = (product) => {
   <td>${product.price}</td>
   <td>${product.amount}</td>
   <td>${product.amount * product.price}</td>
-  <td><button class="secundary-button" onclick="editDelete()">Edit</td>
   <td><button class="secundary-button" onclick="deleteProduct('${product.id}')">Delete</td>
   `;
   document.querySelector('#tbodyCart').appendChild(newRow);
@@ -37,7 +36,7 @@ console.log(options);
 const selectElement = document.getElementById('productName');
 
 const optionsElement = [
-  '<option value="#" disabled selected>Selecione um produto</option>',
+  '<option value="#" disabled selected>Select a Product</option>',
   options.map((option) => `<option value="${option.id}">${option.productName}</option>`)
 ];
 
@@ -74,11 +73,6 @@ const fillFields = (product) => {
 };
 //crud
 
-const editProduct = (index) => {
-  const product = getLocalStorage()[index];
-  product.index = index;
-  fillFields(product);
-};
 
 const deleteProduct = (id) => {
   const cart = getCart();
@@ -94,6 +88,7 @@ const updateProduct = (index, product) => {
   setLocalStorage(dbProduct);
   updateTotalAndTaxFields();
 };
+
 
 const handleClickAddToCart = () => {
   const allProducts = getLocalStorage();
@@ -114,12 +109,6 @@ const handleClickAddToCart = () => {
   updateTable();
 };
 
-const renderCart = () => {
-  const cart = getCart();
-  tabelaCarrinhoElement.innerHTML = '';
-  cart.forEach(createRow);
-};
-
 const calculateTotalAndTax = () => {
   const cart = getCart();
 
@@ -137,21 +126,11 @@ const updateTotalAndTaxFields = () => {
 
 document.querySelector('#productName').addEventListener('change', (e) => {
   const product = getLocalStorage().find((product) => product.id == e.target.value);
-  console.log(product);
 
   document.getElementById('price').value = product.price;
   document.getElementById('tax').value = product.category.taxCategories;
 });
 
-// const subtrctFromProduct = (cart) => {
-//   const products = getLocalStorage();
-//   console.log(product);
-//   products.forEach((item) => {
-//     const product = products.find((product) => product.id == item.id);
-//     product.amount -= item.amount;
-    
-//   });
-// };
 
 
 const subtrctFromProduct = (cart) => {
