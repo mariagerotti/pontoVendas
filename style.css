@@ -8,6 +8,12 @@
   margin: 10px;
 }
 
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .header {
   background-color: rgb(114, 92, 252);
   display: flex;

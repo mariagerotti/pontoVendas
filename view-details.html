@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <script src="./js/view-details.js" defer></script>
 
     <title>View Details</title>
   </head>
@@ -13,37 +14,24 @@
     </div>
     <div class="main main-view">
       <table>
-        <tr>
-          <th>Code</th>
-          <th>Purchase date</th>
-          <th>Product name</th>
-          <th>Amount</th>
-          <th>Unit price</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Purchase date</th>
+            <th>Product name</th>
+            <th>Amount</th>
+            <th>Unit price</th>
+          </tr>
+        </thead>
 
-        <tr>
-          <td>001</td>
-          <td>02/19/2024</td>
-          <td>Beans</td>
-          <td>58</td>
-          <td>$9.00</td>
-        </tr>
+        <tbody id="tbodyHistory"></tbody>
       </table>
 
       <div class="total-info">
-        <h3 class="tax-paid">Taxes you paid: -$29.00</h3>
+        <h3 class="tax-paid" id="tax">Taxes you paid: -$29.00</h3>
 
-        <h1>Total: $551.00</h1>
+        <h1 id="total">Total: $551.00</h1>
       </div>
-     <!--<div class="div-image-beans">
-        <img
-          class="image-beans"
-          height="300"
-          width="450"
-          src="https://www.eatthis.com/wp-content/uploads/sites/4/2020/03/variety-of-beans.jpg?quality=82&strip=1"
-          alt="many types of beans"
-        />
-      </div> --> 
     </div>
   </body>
 </html>

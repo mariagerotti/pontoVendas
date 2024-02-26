@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="./js/history.js" defer></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 
     <title>History</title>
   </head>
@@ -22,29 +22,16 @@
     <div class="main main-history">
       <div class="table-history">
         <table>
-          <tr>
-            <th>Code</th>
-            <th>Tax</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Tax</th>
+              <th>Total</th>
+              <th>Details</th>
+            </tr>
+          </thead>
 
-          <tr>
-            <td>001</td>
-            <td>$2.00</td>
-            <td>$20.00</td>
-            <td>
-              <a href="view-details.html"><button>View</button></a>
-            </td>
-          </tr>
-          <tr>
-            <td>002</td>
-            <td>$0.50</td>
-            <td>$10.00</td>
-            <td>
-              <a href=""><button>View</button></a>
-            </td>
-          </tr>
+          <tbody id="tbodyHistory"></tbody>
         </table>
         <br />
       </div>

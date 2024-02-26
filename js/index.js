@@ -1,46 +1,29 @@
-const getLocalStorage = () =>
-  JSON.parse(localStorage.getItem("db_product")) ?? [];
+const getLocalStorage = () => JSON.parse(localStorage.getItem('db_product')) ?? [];
 
-const setLocalStorage = (dbProduct) =>
-  localStorage.setItem("db_product", JSON.stringify(dbProduct));
+const setLocalStorage = (dbProduct) => localStorage.setItem('db_product', JSON.stringify(dbProduct));
 
-const getCategories = () =>
-  JSON.parse(localStorage.getItem("db_categories")) ?? [];
+const getCategories = () => JSON.parse(localStorage.getItem('db_categories')) ?? [];
 
-const setCart = (cart) => localStorage.setItem("cart", JSON.stringify(cart));
-const getCart = () => JSON.parse(localStorage.getItem("cart")) ?? [];
+const setCart = (cart) => localStorage.setItem('cart', JSON.stringify(cart));
+const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];
+
+const getHistory = () => JSON.parse(localStorage.getItem('history')) ?? [];
+const setHistory = (history) => localStorage.setItem('history', JSON.stringify(history));
 
 const createRow = (product) => {
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = ` 
+  console.log(product);
+  const newRow = document.createElement('tr');
+
+  newRow.innerHTML = `
   <td>${product.productName}</td>
-  <td>${product.amount}</td>
-  <td>${product.tax}</td>
   <td>${product.price}</td>
+  <td>${product.amount}</td>
+  <td>${product.amount * product.price}</td>
   <td><button class="secundary-button" onclick="editDelete()">Edit</td>
-  <td><button class="secundary-button" onclick="deleteProduct(${product.id})">Delete</td>
+  <td><button class="secundary-button" onclick="deleteProduct('${product.id}')">Delete</td>
   `;
-  document.querySelector("#tbodyCart").appendChild(newRow);
+  document.querySelector('#tbodyCart').appendChild(newRow);
 };
-
-// const calculateTotalAndTax = () => {
-//   const dbProduct = getLocalStorage();
-//   let total = 0;
-//   let tax = 0;
-
-//   dbProduct.forEach((product) => {
-//     const totalPrice = product.amount * product.price;
-//     total += totalPrice;
-//     tax += totalPrice * (product.tax / 100);
-//   });
-//   return { total, tax };
-// };
-
-// const updateTotalAndTaxFields = () => {
-//   const { total, tax } = calculateTotalAndTax();
-//   document.getElementById("final-tax").value = `$${tax.toFixed(2)}`;
-//   document.getElementById("total").value = `$${(total + tax).toFixed(2)}`;
-// };
 
 const createProduct = (product) => {
   const cart = getCart();
@@ -48,70 +31,46 @@ const createProduct = (product) => {
   setCart(cart);
 };
 
-const isValidField = () => {
-  return document.getElementById("addProduct").reportValidity();
-};
-
-const clearFields = () => {
-  const fields = document.getElementById(
-    "productName",
-    "amount",
-    "tax",
-    "price"
-  );
-  fields.foreEach((field) => (field.value = ""));
-};
-//interação com layout
-const saveProduct = () => {
-  if (isValidField()) {
-    const product = {
-      productName: document.getElementById("productName").value,
-      amount: document.getElementById("amount").value,
-      tax: document.getElementById("tax").value,
-      price: document.getElementById("price").value,
-      id: Math.random(),
-    };
-    const index = document.getElementById("productName").dataset.index;
-    if (index == "new") {
-      createProduct(product);
-      clearFields();
-    } else {
-      updateProduct(index, product);
-      updateTable();
-    }
-  }
-};
-
 const options = getLocalStorage();
+console.log(options);
 
+const selectElement = document.getElementById('productName');
 
-const selectElement = document.getElementById("productName");
-const optionsElement = options.map(
-  (option) => { selectElement.innerHTML += `<option value="${option.productName}">${option.productName}</option>`;} 
-  
-  // `<option value="${option.productName}">${option.productName}</option>`
-);
+const optionsElement = [
+  '<option value="#" disabled selected>Selecione um produto</option>',
+  options.map((option) => `<option value="${option.id}">${option.productName}</option>`)
+];
 
-document.querySelector("#productName").innerHTML = optionsElement;
-const tableCartElement = document.querySelector("#tbodyCart");
+document.getElementById('productName').innerHTML = optionsElement.join('');
+
+document
+  .getElementById('productName')
+  .insertAdjacentHTML('afterbegin', '<option id="optionIndex" disabled selected>Select your Product</option>');
+
+// `<option value="${option.productName}">${option.productName}</option>`
+
+document.querySelector('#productName').innerHTML = optionsElement;
+const tableCartElement = document.querySelector('#tbodyCart');
 
 const clearTable = () => {
-  const rows = document.querySelectorAll("#tableIndex>tbody tr");
+  const rows = document.querySelectorAll('#tableIndex>tbody tr');
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
 const updateTable = () => {
-  const dbProduct = getLocalStorage();
+  const cart = getCart();
   clearTable();
-  dbProduct.forEach(createRow);
+  cart.forEach(createRow);
+
+  updateTotalAndTaxFields();
 };
 
 const fillFields = (product) => {
-  document.getElementById("productName").value = product.productName;
-  document.getElementById("amount").value = product.amount;
-  document.getElementById("tax").value = product.tax;
-  document.getElementById("price").value = product.price;
-  document.getElementById("productName").dataset.index = product.index;
+  document.getElementById('productName').value = product.productName;
+  document.getElementById('amount').value = product.amount;
+  document.getElementById('tax').value = product.tax;
+  document.getElementById('price').value = product.price;
+  document.getElementById('productName').dataset.index = product.index;
 };
 //crud
 
@@ -121,33 +80,12 @@ const editProduct = (index) => {
   fillFields(product);
 };
 
-const editDelete = (e) => {
-  if (e.target.type == "button") {
-    const [action, index] = e.target.id.split("-");
-    if (action == "edit") {
-      editProduct(index);
-    } else {
-      const product = getLocalStorage()[index];
-      const response = confirm(
-        `deseja realmente excluir o produto ${product.productName}`
-      );
-      if (response) {
-        deleteProduct(product);
-        updateTable();
-      }
-    }
-  }
-};
-
-updateTable();
-// updateTotalAndTaxFields();
-
 const deleteProduct = (id) => {
-  const dbProduct = getLocalStorage();
-  const newDbProduct = dbProduct.filter((item) => id !== item.id);
-  setLocalStorage(newDbProduct);
-  updateTotalAndTaxFields();
-  window.location.reload();
+  const cart = getCart();
+  const newCart = cart.filter((item) => id != item.id);
+  setCart(newCart);
+
+  updateTable();
 };
 
 const updateProduct = (index, product) => {
@@ -158,30 +96,85 @@ const updateProduct = (index, product) => {
 };
 
 const handleClickAddToCart = () => {
-  const productId = document.querySelector("productName").value;
-  const product = getLocalStorage().find((item) => item.id == productId);
-  const fullProduct = {
+  const allProducts = getLocalStorage();
+
+  const productId = document.getElementById('productName').value;
+  const productAmount = document.getElementById('amount').value;
+
+  const product = allProducts.find((product) => product.id == productId);
+
+  const cartItem = {
     ...product,
-    amount: (document.querySelector("#amount").innerHTML = optionsElement),
+    amount: productAmount
   };
-  createProduct(fullProduct);
-  renderCart();
-  clearFields();
+
+  console.log(cartItem);
+
+  createProduct(cartItem);
+  updateTable();
 };
 
 const renderCart = () => {
   const cart = getCart();
-  tabelaCarrinhoElement.innerHTML = "";
+  tabelaCarrinhoElement.innerHTML = '';
   cart.forEach(createRow);
 };
 
+const calculateTotalAndTax = () => {
+  const cart = getCart();
+
+  const total = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
+  const tax = cart.reduce((acc, item) => acc + item.category.taxCategories * item.amount, 0);
+  return { total, tax };
+};
+
+const updateTotalAndTaxFields = () => {
+  const { total, tax } = calculateTotalAndTax();
+  document.getElementById('final-tax').value = `${tax.toFixed(2)}`;
+  document.getElementById('total').value = `${(total + tax).toFixed(2)}`;
+};
 //eventos
-document
-  .getElementById("buttonCreateProduct")
-  .addEventListener("click", saveProduct);
 
-document
-  .querySelector("#tableIndex>tbody")
-  .addEventListener("click", editDelete);
+document.querySelector('#productName').addEventListener('change', (e) => {
+  const product = getLocalStorage().find((product) => product.id == e.target.value);
+  console.log(product);
+  document.getElementById('price').value = product.price;
+  document.getElementById('tax').value = product.category.taxCategories;
+});
 
-// document.querySelector('#product').appendChild
+const subtrctFromProduct = (cart) => {
+  const products = getLocalStorage();
+
+  cart.forEach((item) => {
+    const product = products.find((product) => product.id == item.id);
+    product.amount -= item.amount;
+  });
+};
+
+const updateHistory = (cart) => {
+  const history = getHistory();
+
+  const newHistory = {
+    id: new Date().getTime(),
+    cart,
+    date: new Date().toLocaleDateString,
+    total: document.getElementById('total').value,
+    tax: document.getElementById('final-tax').value
+  };
+
+  history.push(newHistory);
+
+  setHistory(history);
+  console.log(newHistory);
+};
+
+document.querySelector('#finish-button').addEventListener('click', () => {
+  const cart = getCart();
+  subtrctFromProduct(cart);
+  updateHistory(cart);
+  setCart([]);
+  updateTable();
+
+  alert('Compra finalizada com sucesso');
+});
+updateTable();

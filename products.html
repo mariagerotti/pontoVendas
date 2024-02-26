@@ -1,58 +1,54 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./js/products.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="./js/products.js" defer></script>
-  <link rel="stylesheet" href="style.css" />
+    <title>Products</title>
+  </head>
 
-  <title>Products</title>
-</head>
-
-<body>
-  <div class="header">
-    <h1>Products</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="categories.html">Categories</a></li>
-      <li><a href="history.html">History</a></li>
-    </ul>
-  </div>
-
-  <div class="main main-categories">
-    <form class="inputs-products" id="inputsProducts">
-      <input placeholder="Product Name" type="text" name="product-name" id="nameProductsProd" data-index="new"
-        required />
-
-      <input required placeholder="Amount" type="number" name="amount" id="amountProducts" />
-
-      <input required step="0.01" placeholder="Unit Price" type="number" name="unit-price" id="unitPriceProducts" />
-
-      <select required id="categoryProducts">
-      </select>
-
-      <button onclick="handleClickAddProduct()">Add Product</button>
-    </form>
-
-    <div class="table-products">
-      <table id="tableProducts">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Product</th>
-            <th>Amount</th>
-            <th>Unit Price</th>
-            <th>Category</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody></tbody>
-      </table>
+  <body>
+    <div class="header">
+      <h1>Products</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="history.html">History</a></li>
+      </ul>
     </div>
-  </div>
-</body>
 
+    <div class="main main-categories">
+      <div class="inputs-products" id="inputsProducts">
+        <input placeholder="Product Name" type="text" name="product-name" id="nameProductsProd" data-index="new" required />
+
+        <input required placeholder="Amount" type="number" name="amount" id="amountProducts" />
+
+        <input required step="0.01" placeholder="Unit Price" type="number" name="unit-price" id="unitPriceProducts" />
+
+        <select required id="categoryProducts"></select>
+
+        <button onclick="handleClickAddProduct()">Add Product</button>
+      </div>
+
+      <div class="table-products">
+        <table id="tableProducts">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Product</th>
+              <th>Amount</th>
+              <th>Unit Price</th>
+              <th>Category</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
 </html>
