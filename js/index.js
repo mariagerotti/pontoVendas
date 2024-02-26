@@ -46,7 +46,6 @@ document
   .getElementById('productName')
   .insertAdjacentHTML('afterbegin', '<option id="optionIndex" disabled selected>Select your Product</option>');
 
-// `<option value="${option.productName}">${option.productName}</option>`
 
 document.querySelector('#productName').innerHTML = optionsElement;
 const tableCartElement = document.querySelector('#tbodyCart');

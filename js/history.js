@@ -3,7 +3,6 @@ const setHistory = (history) => localStorage.setItem('history', JSON.stringify(h
 
 const renderHistory = () => {
   const history = getHistory();
-  console.log(history);
   const tbody = document.querySelector('#tbodyHistory');
   tbody.innerHTML = '';
 
