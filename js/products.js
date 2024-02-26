@@ -53,7 +53,7 @@ const deleteProduct = (id) => {
 };
 
 const clearFields = () => {
-  document.getElementById('nameProductProd').value = '';
+  document.getElementById('nameProductsProd').value = '';
   document.getElementById('amountProducts').value = '';
   document.getElementById('categoryProducts').value = '';
   document.getElementById('unitPriceProducts').value = '';

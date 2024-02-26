@@ -13,7 +13,11 @@ const renderHistory = () => {
     <td>${item.id}</td>
     <td>${item.tax}</td>
     <td>${item.total}</td>
-    <td><a href="view-details.html?item=${item.id}" class="secundary-button">Detalhes</button></td>
+    <td>
+    <button>
+    <a href="view-details.html?item=${item.id}" class="secundary-button">Detalhes
+    </button>
+    </td>
     `;
     tbody.appendChild(newRow);
   });

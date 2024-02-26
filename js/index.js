@@ -138,16 +138,18 @@ const updateTotalAndTaxFields = () => {
 document.querySelector('#productName').addEventListener('change', (e) => {
   const product = getLocalStorage().find((product) => product.id == e.target.value);
   console.log(product);
+
   document.getElementById('price').value = product.price;
   document.getElementById('tax').value = product.category.taxCategories;
 });
 
 const subtrctFromProduct = (cart) => {
   const products = getLocalStorage();
-
-  cart.forEach((item) => {
-    const product = products.find((product) => product.id == item.id);
+  const product = products.find((product) => product.id == item.id);
+  console.log(product);
+  products.forEach((item) => {
     product.amount -= item.amount;
+
   });
 };
 
