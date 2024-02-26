@@ -143,15 +143,28 @@ document.querySelector('#productName').addEventListener('change', (e) => {
   document.getElementById('tax').value = product.category.taxCategories;
 });
 
+// const subtrctFromProduct = (cart) => {
+//   const products = getLocalStorage();
+//   console.log(product);
+//   products.forEach((item) => {
+//     const product = products.find((product) => product.id == item.id);
+//     product.amount -= item.amount;
+    
+//   });
+// };
+
+
 const subtrctFromProduct = (cart) => {
   const products = getLocalStorage();
-  const product = products.find((product) => product.id == item.id);
-  console.log(product);
-  products.forEach((item) => {
-    product.amount -= item.amount;
 
+  cart.forEach((item) => {
+    const product = products.find((product) => product.id == item.id);
+    product.amount -= item.amount;
   });
-};
+
+  setLocalStorage(products);
+}
+
 
 const updateHistory = (cart) => {
   const history = getHistory();
