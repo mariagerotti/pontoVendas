@@ -146,7 +146,8 @@ td:last-child {
 .inputs-categories {
   padding: 24px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 15vw;
 }
 
 #name-categories,
