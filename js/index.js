@@ -150,7 +150,8 @@ document.querySelector("#productName").addEventListener("change", (e) => {
   const product = getLocalStorage().find(
     (product) => product.id == e.target.value
   );
-
+  document.getElementById("amount").value = 1;
+  document.getElementById("amount").max = product.amount;
   document.getElementById("price").value = product.price;
   document.getElementById("tax").value = product.category.taxCategories;
 });
@@ -164,13 +165,10 @@ const subtrctFromProduct = (cart) => {
       alert("Compra finalizada com sucesso");
       product.amount -= item.amount;
       setLocalStorage(products);
-      
     } else {
-
       alert("Quantidade insuficiente em estoque");
     }
   });
-
 };
 
 const updateHistory = (cart) => {
@@ -196,7 +194,5 @@ document.querySelector("#finish-button").addEventListener("click", () => {
   updateHistory(cart);
   setCart([]);
   updateTable();
-
-  
 });
 updateTable();
