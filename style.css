@@ -24,7 +24,7 @@ body {
   padding: 16px;
 }
 .half {
-  flex: 1;
+  width: 50vw;
 }
 
 .add-products {
@@ -43,6 +43,7 @@ body {
   justify-content: space-between;
   margin-top: 16px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .secundary-button {
@@ -185,7 +186,6 @@ td:last-child {
 
 form{
   display: flex;
-  
   gap: 1em;
 }
 
@@ -205,4 +205,9 @@ form{
   border-radius: 8px;
   align-items: flex-end;
   margin-right: 0;
+}
+
+img {
+max-width: 100%;
+height: auto;
 }

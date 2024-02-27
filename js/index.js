@@ -1,27 +1,33 @@
-const getLocalStorage = () => JSON.parse(localStorage.getItem('db_product')) ?? [];
+const getLocalStorage = () =>
+  JSON.parse(localStorage.getItem("db_product")) ?? [];
 
-const setLocalStorage = (dbProduct) => localStorage.setItem('db_product', JSON.stringify(dbProduct));
+const setLocalStorage = (dbProduct) =>
+  localStorage.setItem("db_product", JSON.stringify(dbProduct));
 
-const getCategories = () => JSON.parse(localStorage.getItem('db_categories')) ?? [];
+const getCategories = () =>
+  JSON.parse(localStorage.getItem("db_categories")) ?? [];
 
-const setCart = (cart) => localStorage.setItem('cart', JSON.stringify(cart));
-const getCart = () => JSON.parse(localStorage.getItem('cart')) ?? [];
+const setCart = (cart) => localStorage.setItem("cart", JSON.stringify(cart));
+const getCart = () => JSON.parse(localStorage.getItem("cart")) ?? [];
 
-const getHistory = () => JSON.parse(localStorage.getItem('history')) ?? [];
-const setHistory = (history) => localStorage.setItem('history', JSON.stringify(history));
+const getHistory = () => JSON.parse(localStorage.getItem("history")) ?? [];
+const setHistory = (history) =>
+  localStorage.setItem("history", JSON.stringify(history));
 
 const createRow = (product) => {
   console.log(product);
-  const newRow = document.createElement('tr');
+  const newRow = document.createElement("tr");
 
   newRow.innerHTML = `
   <td>${product.productName}</td>
   <td>${product.price}</td>
   <td>${product.amount}</td>
   <td>${product.amount * product.price}</td>
-  <td><button class="secundary-button" onclick="deleteProduct('${product.id}')">Delete</td>
+  <td><button class="secundary-button" onclick="deleteProduct('${
+    product.id
+  }')">Delete</td>
   `;
-  document.querySelector('#tbodyCart').appendChild(newRow);
+  document.querySelector("#tbodyCart").appendChild(newRow);
 };
 
 const createProduct = (product) => {
@@ -33,25 +39,29 @@ const createProduct = (product) => {
 const options = getLocalStorage();
 console.log(options);
 
-const selectElement = document.getElementById('productName');
+const selectElement = document.getElementById("productName");
 
 const optionsElement = [
   '<option value="#" disabled selected>Select a Product</option>',
-  options.map((option) => `<option value="${option.id}">${option.productName}</option>`)
+  options.map(
+    (option) => `<option value="${option.id}">${option.productName}</option>`
+  ),
 ];
 
-document.getElementById('productName').innerHTML = optionsElement.join('');
+document.getElementById("productName").innerHTML = optionsElement.join("");
 
 document
-  .getElementById('productName')
-  .insertAdjacentHTML('afterbegin', '<option id="optionIndex" disabled selected>Select your Product</option>');
+  .getElementById("productName")
+  .insertAdjacentHTML(
+    "afterbegin",
+    '<option id="optionIndex" disabled selected>Select your Product</option>'
+  );
 
-
-document.querySelector('#productName').innerHTML = optionsElement;
-const tableCartElement = document.querySelector('#tbodyCart');
+document.querySelector("#productName").innerHTML = optionsElement;
+const tableCartElement = document.querySelector("#tbodyCart");
 
 const clearTable = () => {
-  const rows = document.querySelectorAll('#tableIndex>tbody tr');
+  const rows = document.querySelectorAll("#tableIndex>tbody tr");
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
@@ -64,16 +74,14 @@ const updateTable = () => {
 };
 
 const fillFields = (product) => {
-  document.getElementById('productName').value = product.productName;
-  document.getElementById('amount').value = product.amount;
-  document.getElementById('tax').value = product.tax;
-  document.getElementById('price').value = product.price;
-  document.getElementById('productName').dataset.index = product.index;
+  document.getElementById("productName").value = product.productName;
+  document.getElementById("amount").value = product.amount;
+  document.getElementById("tax").value = product.tax;
+  document.getElementById("price").value = product.price;
+  document.getElementById("productName").dataset.index = product.index;
 };
 
-
 //crud
-
 
 const deleteProduct = (id) => {
   const cart = getCart();
@@ -91,75 +99,79 @@ const updateProduct = (index, product) => {
 };
 
 const isValidField = () => {
-  return document.getElementById('formIndex').reportValidity();
+  return document.getElementById("formIndex").reportValidity();
 };
-
 
 const handleClickAddToCart = () => {
-  
   if (isValidField()) {
-  const allProducts = getLocalStorage();
+    const allProducts = getLocalStorage();
 
-  const productId = document.getElementById('productName').value.replace(/</g,
-  "&lt;"
-  ).replace(/>/g,
-  "&gt;"
-  );
-  const productAmount = document.getElementById('amount').value.replace(/</g,
-  "&lt;"
-  ).replace(/>/g,
-  "&gt;"
-  );
+    const productId = document
+      .getElementById("productName")
+      .value.replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    const productAmount = document
+      .getElementById("amount")
+      .value.replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
 
-  const product = allProducts.find((product) => product.id == productId);
+    const product = allProducts.find((product) => product.id == productId);
 
-  const cartItem = {
-    ...product,
-    amount: productAmount
-  };
+    const cartItem = {
+      ...product,
+      amount: productAmount,
+    };
 
-  console.log(cartItem);
-  createProduct(cartItem);
-  updateTable();
-
-};
+    console.log(cartItem);
+    createProduct(cartItem);
+    updateTable();
+  }
 };
 
 const calculateTotalAndTax = () => {
   const cart = getCart();
 
   const total = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
-  const tax = cart.reduce((acc, item) => acc + item.category.taxCategories * item.amount, 0);
+  const tax = cart.reduce(
+    (acc, item) => acc + item.category.taxCategories * item.amount,
+    0
+  );
   return { total, tax };
 };
 
 const updateTotalAndTaxFields = () => {
   const { total, tax } = calculateTotalAndTax();
-  document.getElementById('final-tax').value = `${tax.toFixed(2)}`;
-  document.getElementById('total').value = `${(total + tax).toFixed(2)}`;
+  document.getElementById("final-tax").value = `${tax.toFixed(2)}`;
+  document.getElementById("total").value = `${(total + tax).toFixed(2)}`;
 };
 //eventos
 
-document.querySelector('#productName').addEventListener('change', (e) => {
-  const product = getLocalStorage().find((product) => product.id == e.target.value);
+document.querySelector("#productName").addEventListener("change", (e) => {
+  const product = getLocalStorage().find(
+    (product) => product.id == e.target.value
+  );
 
-  document.getElementById('price').value = product.price;
-  document.getElementById('tax').value = product.category.taxCategories;
+  document.getElementById("price").value = product.price;
+  document.getElementById("tax").value = product.category.taxCategories;
 });
-
-
 
 const subtrctFromProduct = (cart) => {
   const products = getLocalStorage();
 
   cart.forEach((item) => {
     const product = products.find((product) => product.id == item.id);
-    product.amount -= item.amount;
+    if (item.amount < product.amount) {
+      alert("Compra finalizada com sucesso");
+      product.amount -= item.amount;
+      setLocalStorage(products);
+      
+    } else {
+
+      alert("Quantidade insuficiente em estoque");
+    }
   });
 
-  setLocalStorage(products);
-}
-
+};
 
 const updateHistory = (cart) => {
   const history = getHistory();
@@ -168,9 +180,8 @@ const updateHistory = (cart) => {
     id: new Date().getTime(),
     cart,
     date: new Date().toLocaleDateString,
-    total: document.getElementById('total').value,
-    tax: document.getElementById('final-tax').value
-    
+    total: document.getElementById("total").value,
+    tax: document.getElementById("final-tax").value,
   };
 
   history.push(newHistory);
@@ -179,13 +190,13 @@ const updateHistory = (cart) => {
   console.log(newHistory);
 };
 
-document.querySelector('#finish-button').addEventListener('click', () => {
+document.querySelector("#finish-button").addEventListener("click", () => {
   const cart = getCart();
   subtrctFromProduct(cart);
   updateHistory(cart);
   setCart([]);
   updateTable();
 
-  alert('Compra finalizada com sucesso');
+  
 });
 updateTable();
