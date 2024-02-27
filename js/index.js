@@ -113,13 +113,28 @@ const handleClickAddToCart = () => {
       .getElementById("amount")
       .value.replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
+      
 
     const product = allProducts.find((product) => product.id == productId);
+
+    const cart = getCart();
+    if (cart.some((item) => item.id == product.id)) {
+      cart.forEach((item) => {
+        if (item.id == product.id) {
+          item.amount = parseInt(item.amount) + parseInt(productAmount);
+          
+        }
+      }
+      );
+      setCart(cart);
+      return;
+    }
 
     const cartItem = {
       ...product,
       amount: productAmount,
     };
+
 
     console.log(cartItem);
     createProduct(cartItem);
@@ -160,7 +175,7 @@ const subtrctFromProduct = (cart) => {
 
   cart.forEach((item) => {
     const product = products.find((product) => product.id == item.id);
-    if (item.amount < product.amount) {
+    if (item.amount <= product.amount) {
       alert("Compra finalizada com sucesso");
       product.amount -= item.amount;
       setLocalStorage(products);
