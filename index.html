@@ -1,71 +1,101 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="./js/index.js" defer></script>
+    <title>Suite Store</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <script src="./js/index.js" defer></script>
-  <title>Suite Store</title>
-</head>
-
-<body>
-  <div class="header">
-    <h1>Suite Store</h1>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="products.html">Products</a></li>
-      <li><a href="categories.html">Categories</a></li>
-      <li><a href="history.html">History</a></li>
-    </ul>
-  </div>
-
-  <div class="main main-index" id="mainIndex">
-    <div class="half add-products" id="addProduct">
-      <select id="productName" name="add-wich-product" data-index="new"></select>
-
-      <div class="amount-tax-price">
-        <input placeholder="Amount" type="number" name="amount" id="amount" required />
-
-        <input disabled placeholder="Tax" type="number" name="tax-value" id="tax" min="0.01" />
-
-        <input disabled placeholder="Price" type="number" name="unit-price" id="price" />
-      </div>
-
-      <button class="secundary-button" id="buttonCreateProduct" onclick="handleClickAddToCart()">Add Product</button>
+  <body>
+    <div class="header">
+      <h1>Suite Store</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="categories.html">Categories</a></li>
+        <li><a href="history.html">History</a></li>
+      </ul>
     </div>
 
-    <div class="half info-products">
-      <div class="table-index">
-        <table id="tableIndex">
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Price</th>
-              <th>Amount</th>
-              <th>Total</th>
+    <div class="main main-index" id="mainIndex">
+      <div class="half add-products" id="addProduct">
+        <form class="amount-tax-price" id="formIndex" required>
+         
 
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody id="tbodyCart"></tbody>
-        </table>
+            <select
+              id="productName"
+              name="add-wich-product"
+              data-index="new"
+            ></select>
+         
+          
+          <input
+            required
+            placeholder="Amount"
+            type="number"
+            name="amount"
+            id="amount"
+            min="1"
+          />
+
+          <input
+            disabled
+            placeholder="Tax"
+            type="number"
+            name="tax-value"
+            id="tax"
+          />
+
+          <input
+            disabled
+            placeholder="Price"
+            type="number"
+            name="unit-price"
+            id="price"
+          />
+          <button
+            class="secundary-button"
+            id="buttonCreateProduct"
+            onclick="handleClickAddToCart()"
+          >
+            Add Product
+          </button>
+        </form>
+        <img src="https://www.hostinger.com.br/tutoriais/wp-content/uploads/sites/12/2020/10/image4.webp" alt="">
       </div>
 
-      <div class="total-tax">
-        <label for="tax">Tax:</label>
-        <input disabled type="number" name="tax" id="final-tax" />
+      <div class="half info-products">
+        <div class="table-index">
+          <table id="tableIndex">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Amount</th>
+                <th>Total</th>
 
-        <label for="total">Total:</label>
-        <input disabled type="number" name="total" id="total" />
-      </div>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyCart"></tbody>
+          </table>
+        </div>
 
-      <div class="finish-add">
-        <button class="primary-button" id="cancel">Cancel</button>
-        <button class="finish-button" id="finish-button">Finish</button>
+        <div class="total-tax">
+          <label for="tax">Tax:</label>
+          <input disabled type="number" name="tax" id="final-tax" />
+
+          <label for="total">Total:</label>
+          <input disabled type="number" name="total" id="total" />
+        </div>
+
+        <div class="finish-add">
+          <button class="primary-button" id="cancel">Cancel</button>
+          <button class="finish-button" id="finish-button">Finish</button>
+        </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

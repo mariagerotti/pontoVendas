@@ -113,6 +113,15 @@ option {
   border-radius: 6px;
 }
 
+#productName{
+ 
+
+  
+
+}
+
+
+
 #nameProductsProd {
   display: flex;
 }
@@ -167,6 +176,17 @@ td:last-child {
 #unitPriceProducts,
 #categoryProducts {
   width: 18%;
+}
+
+#buttonCreateProduct {
+  width: 100%;
+  margin-top: 6px;
+}
+
+form{
+  display: flex;
+  
+  gap: 1em;
 }
 
 .tax-paid {

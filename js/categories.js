@@ -22,9 +22,17 @@ const clearFields = () => {
 const saveCategory = () => {
   if (isValidField()) {
     const categories = {
-      nameCategories: document.getElementById("nameCategories").value,
-      taxCategories: document.getElementById("taxCategories").value,
       id: Math.random().toString(36).substr(2, 6),
+      nameCategories: document.getElementById("nameCategories").value.replace(/</g,
+      "&lt;"
+      ).replace(/>/g,
+      "&gt;"
+      ),
+      taxCategories: document.getElementById("taxCategories").value.replace(/</g,
+      "&lt;"
+      ).replace(/>/g,
+      "&gt;"
+      ),
     };
     createCategory(categories);
   }

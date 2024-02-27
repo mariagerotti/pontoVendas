@@ -70,6 +70,8 @@ const fillFields = (product) => {
   document.getElementById('price').value = product.price;
   document.getElementById('productName').dataset.index = product.index;
 };
+
+
 //crud
 
 
@@ -88,12 +90,26 @@ const updateProduct = (index, product) => {
   updateTotalAndTaxFields();
 };
 
+const isValidField = () => {
+  return document.getElementById('formIndex').reportValidity();
+};
+
 
 const handleClickAddToCart = () => {
+  
+  if (isValidField()) {
   const allProducts = getLocalStorage();
 
-  const productId = document.getElementById('productName').value;
-  const productAmount = document.getElementById('amount').value;
+  const productId = document.getElementById('productName').value.replace(/</g,
+  "&lt;"
+  ).replace(/>/g,
+  "&gt;"
+  );
+  const productAmount = document.getElementById('amount').value.replace(/</g,
+  "&lt;"
+  ).replace(/>/g,
+  "&gt;"
+  );
 
   const product = allProducts.find((product) => product.id == productId);
 
@@ -103,9 +119,10 @@ const handleClickAddToCart = () => {
   };
 
   console.log(cartItem);
-
   createProduct(cartItem);
   updateTable();
+
+};
 };
 
 const calculateTotalAndTax = () => {
@@ -153,6 +170,7 @@ const updateHistory = (cart) => {
     date: new Date().toLocaleDateString,
     total: document.getElementById('total').value,
     tax: document.getElementById('final-tax').value
+    
   };
 
   history.push(newHistory);

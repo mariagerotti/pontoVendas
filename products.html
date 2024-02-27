@@ -22,19 +22,19 @@
   </div>
 
   <div class="main main-products">
-    <div class="inputs-products" id="inputsProducts">
-      <input required placeholder="Product Name" type="text" name="product-name" id="nameProductsProd" data-index="new"
-         />
+    <form class="inputs-products" id="inputsProducts" required>
+      <input required placeholder="Product Name" type="text" name="product-name" id="nameProductsProd"
+        data-index="new" />
 
-      <input required placeholder="Amount" type="number" name="amount" id="amountProducts"  min="1" 
-      onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"/>
+      <input required placeholder="Amount" type="number" name="amount" id="amountProducts" min="1" step="1" />
 
-      <input required placeholder="$ Unit Price" type="number" name="unit-price" id="unitPriceProducts"  min="1"/>
+      <input required placeholder="$ Unit Price" type="number" name="unit-price" id="unitPriceProducts" min="1"
+        step="any" />
 
       <select required id="categoryProducts"></select>
 
       <button onclick="handleClickAddProduct()">Add Product</button>
-    </div>
+    </form>
 
     <div class="table-products">
       <table id="tableProducts">

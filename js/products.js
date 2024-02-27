@@ -18,31 +18,52 @@ const createRow = (product) => {
   <td><button onclick="deleteProduct('${product.id}')">Delete</td>
   `;
   document.querySelector('#tableProducts>tbody').appendChild(newRow);
+  console.log(product.category.nameCategories);
+};
+
+const isValidField = () => {
+  return document.getElementById('inputsProducts').reportValidity();
 };
 
 const handleClickAddProduct = () => {
-  const allCategories = getCategories();
+  if (isValidField()) {
 
-  const categoryId = document.getElementById('categoryProducts').value;
-
-  const category = allCategories.find((category) => category.id === categoryId);
-
-  const product = {
-    id: Math.random().toString(36).substr(2, 9),
-    productName: document.getElementById('nameProductsProd').value,
-    amount: document.getElementById('amountProducts').value,
-    price: document.getElementById('unitPriceProducts').value,
-    category: category
-  };
-
-  console.log(product);
-
-  const products = getProducts();
-  products.push(product);
-  setProducts(products);
-
-  clearFields();
-  updateTable();
+    const allCategories = getCategories();
+    
+    const categoryId = document.getElementById('categoryProducts').value;
+    
+    const category = allCategories.find((category) => category.id === categoryId);
+    
+    const product = {
+      id: Math.random().toString(36).substr(2, 9),
+      productName: document.getElementById('nameProductsProd').value.replace(/</g,
+      "&lt;"
+      ).replace(/>/g,
+      "&gt;"
+      ),
+      amount: document.getElementById('amountProducts').value.replace(/</g,
+      "&lt;"
+      ).replace(/>/g,
+      "&gt;"
+      ),
+      price: document.getElementById('unitPriceProducts').value.replace(/</g,
+      "&lt;"
+      ).replace(/>/g,
+      "&gt;"
+      ),
+      
+      category: category
+    };
+    
+    console.log(product);
+    
+    const products = getProducts();
+    products.push(product);
+    setProducts(products);
+    
+    clearFields();
+    updateTable();
+  }
 };
 
 const deleteProduct = (id) => {
