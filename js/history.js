@@ -23,5 +23,4 @@ const renderHistory = () => {
 };
 
 
-
 renderHistory();

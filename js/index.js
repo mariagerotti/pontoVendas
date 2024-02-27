@@ -1,6 +1,5 @@
 const getLocalStorage = () =>
   JSON.parse(localStorage.getItem("db_product")) ?? [];
-
 const setLocalStorage = (dbProduct) =>
   localStorage.setItem("db_product", JSON.stringify(dbProduct));
 
@@ -187,6 +186,54 @@ const updateHistory = (cart) => {
   setHistory(history);
   console.log(newHistory);
 };
+
+// const createPurchase = (purchase) => {
+//   const db_purchase = getHistory();
+//   db_purchase.push(purchase);
+//   setHistory(db_purchase);
+// };
+
+// const savePurchase = (cart) => {
+//   info = [];
+//   for (const item of cart) {
+//     let listProducts = getLocalStorage();
+//     let productName = item.productName;
+//     let CartAmnt = item.amount;
+//     let selectedProduct = listProducts.find(
+//       (obj) => obj.name == productName
+//     );
+//     let StockAmnt = selectedProduct.amount;
+//     if (CartAmnt <= StockAmnt) {
+//       selectedProduct.amount -= CartAmnt;
+//       setLocalStorage(listProducts);
+//       info.push(item);
+//       // deleteCart(item.index);
+//     } else {
+//       alert(
+//         "Selected amount of " +
+//           selectedProduct.name +
+//           " insufficient in stock"
+//       );
+//     }
+//   }
+
+//   const purchase = {
+//     id,
+//     info,
+//   };
+//   createPurchase(purchase);
+// };
+
+// const checkCart = () => {
+//   let cart = getCart();
+//   let length = cart.length;
+
+//   if (length != 0) {
+//     savePurchase(cart);
+//   } else {
+//     alert("There are no products on the cart...");
+//   }
+// };
 
 document.querySelector("#finish-button").addEventListener("click", () => {
   const cart = getCart();
