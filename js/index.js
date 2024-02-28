@@ -113,7 +113,6 @@ const handleClickAddToCart = () => {
       .getElementById("amount")
       .value.replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
-      
 
     const product = allProducts.find((product) => product.id == productId);
 
@@ -122,10 +121,8 @@ const handleClickAddToCart = () => {
       cart.forEach((item) => {
         if (item.id == product.id) {
           item.amount = parseInt(item.amount) + parseInt(productAmount);
-          
         }
-      }
-      );
+      });
       setCart(cart);
       return;
     }
@@ -134,7 +131,6 @@ const handleClickAddToCart = () => {
       ...product,
       amount: productAmount,
     };
-
 
     console.log(cartItem);
     createProduct(cartItem);
@@ -163,23 +159,24 @@ const updateTotalAndTaxFields = () => {
 document.querySelector("#productName").addEventListener("change", (e) => {
   const product = getLocalStorage().find(
     (product) => product.id == e.target.value
-  );
-  document.getElementById("amount").value = 1;
-  document.getElementById("amount").max = product.amount;
-  document.getElementById("price").value = product.price;
-  document.getElementById("tax").value = product.category.taxCategories;
-});
-
-const subtrctFromProduct = (cart) => {
-  const products = getLocalStorage();
-
-  cart.forEach((item) => {
-    const product = products.find((product) => product.id == item.id);
-    if (item.amount <= product.amount) {
-      alert("Compra finalizada com sucesso");
-      product.amount -= item.amount;
-      setLocalStorage(products);
-    } else {
+    );
+    document.getElementById("amount").value = 1;
+    document.getElementById("amount").max = product.amount;
+    document.getElementById("price").value = product.price;
+    document.getElementById("tax").value = product.category.taxCategories;
+  });
+  
+  const subtrctFromProduct = (cart) => {
+    const products = getLocalStorage();
+    
+    cart.forEach((item) => {
+      const product = products.find((product) => product.id == item.id);
+      if (item.amount <= product.amount) {
+        alert("Compra finalizada com sucesso");
+        product.amount -= item.amount;
+        setLocalStorage(products);
+        updateHistory(cart);
+      } else {
       alert("Quantidade insuficiente em estoque");
     }
   });
@@ -202,58 +199,9 @@ const updateHistory = (cart) => {
   console.log(newHistory);
 };
 
-// const createPurchase = (purchase) => {
-//   const db_purchase = getHistory();
-//   db_purchase.push(purchase);
-//   setHistory(db_purchase);
-// };
-
-// const savePurchase = (cart) => {
-//   info = [];
-//   for (const item of cart) {
-//     let listProducts = getLocalStorage();
-//     let productName = item.productName;
-//     let CartAmnt = item.amount;
-//     let selectedProduct = listProducts.find(
-//       (obj) => obj.name == productName
-//     );
-//     let StockAmnt = selectedProduct.amount;
-//     if (CartAmnt <= StockAmnt) {
-//       selectedProduct.amount -= CartAmnt;
-//       setLocalStorage(listProducts);
-//       info.push(item);
-//       // deleteCart(item.index);
-//     } else {
-//       alert(
-//         "Selected amount of " +
-//           selectedProduct.name +
-//           " insufficient in stock"
-//       );
-//     }
-//   }
-
-//   const purchase = {
-//     id,
-//     info,
-//   };
-//   createPurchase(purchase);
-// };
-
-// const checkCart = () => {
-//   let cart = getCart();
-//   let length = cart.length;
-
-//   if (length != 0) {
-//     savePurchase(cart);
-//   } else {
-//     alert("There are no products on the cart...");
-//   }
-// };
-
 document.querySelector("#finish-button").addEventListener("click", () => {
   const cart = getCart();
   subtrctFromProduct(cart);
-  updateHistory(cart);
   setCart([]);
   updateTable();
 });
