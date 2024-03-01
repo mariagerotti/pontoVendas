@@ -20,10 +20,10 @@
     </div>
 
     <div class="main main-categories">
-      <form class="inputs-categories" id="inputsCategories">
+      <form class="inputs-categories" id="inputsCategories" method="post">
         <input required placeholder="Category Name" type="text" name="category-name" id="nameCategories" />
 
-        <input required placeholder="$ Tax" type="number" name="tax" id="taxCategories" step="0.01"  min="0.01"/>
+        <input required placeholder="$ Tax" type="number" name="category-tax" id="taxCategories" step="0.01"  min="0.01"/>
         <button onclick="saveCategory()">Add Category</button>
       </form>
 
@@ -43,3 +43,6 @@
     </div>
   </body>
 </html>
+<!-- if(isset("addcategoryh")){
+  $name  = 
+} -->

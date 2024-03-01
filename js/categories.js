@@ -8,7 +8,11 @@ const createCategory = (categories) => {
   const dbCategory = getLocalStorage();
   dbCategory.push(categories);
   setLocalStorage(dbCategory);
+  //code akki
+  //const data = new formdata(form)
 };
+
+//const form = document.getElementById('//id do form')
 
 const isValidField = () => {
   return document.getElementById("inputsCategories").reportValidity();
