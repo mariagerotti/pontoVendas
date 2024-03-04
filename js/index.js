@@ -21,7 +21,6 @@ async function getProducts() {
   return data;
 }
 
-
 function postarProd() {
   const formData = new FormData(contactForm);
   fetch(urlOrderItem, {
@@ -52,6 +51,13 @@ function showAddedProd() {
       document.querySelector("#tbodyCart").appendChild(newRow);
     });
   }
+  
+  const calculateTotalAndTax = () => {
+    const cart = getCart();
+    const total = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
+    const tax = cart.reduce((acc, item) => acc + item.category.taxCategories * item.amount, 0);
+    return { total, tax };
+  };
 
   const updateTotalAndTaxFields = () => {
     const { total, tax } = calculateTotalAndTax();
@@ -69,8 +75,32 @@ function showAddedProd() {
     productsList.forEach((category) => {
       selectElement.innerHTML += `<option value="${category.code}">${category.name}</option>`;
     });
+    updateTotalAndTaxFields();
   }
   getProducts();
+
+  // const optionsElement = [
+  //   urlProduct().map(
+  //     (option) => `<option value="${option.code}">${option.name}</option>`
+  //   ),
+  // ];
+
+  
+
+//como transformar getProducts em uma função async
+//como transformar getLocalStorage em uma função async
+
+  // document.querySelector("#productName").addEventListener("change", (e) => {
+  //   const product = getLocalStorage().find(
+  //     (product) => product.id == e.target.value
+  //     );
+  //     document.getElementById("amount").value = 1;
+  //     document.getElementById("amount").max = product.amount;
+  //     document.getElementById("price").value = product.price;
+  //     document.getElementById("tax").value = product.category.taxCategories;
+  //   });
+    
+
   
   // const optionsElement = [
   //   urlProduct.map(
@@ -126,7 +156,7 @@ function showAddedProd() {
 //   rows.forEach((row) => row.parentNode.removeChild(row));
 // };
 
-// const updateTable = () => {
+//  const updateTable = () => {
 //   const cart = getCart();
 //   clearTable();
 //   cart.forEach(createRow);
