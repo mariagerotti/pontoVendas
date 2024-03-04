@@ -23,17 +23,17 @@
 
   <div class="main main-products">
     <form class="inputs-products" id="inputsProducts" required>
-      <input required placeholder="Product Name" type="text" name="product-name" id="nameProductsProd"
+      <input required placeholder="Product Name" type="text" name="name" id="nameProductsProd"
         data-index="new" />
 
       <input required placeholder="Amount" type="number" name="amount" id="amountProducts" min="1" step="1" />
 
-      <input required placeholder="$ Unit Price" type="number" name="unit-price" id="unitPriceProducts" min="1"
+      <input required placeholder="$ Unit Price" type="number" name="unitPrice" id="unitPriceProducts" min="1"
         step="any" />
 
       <select required id="categoryProducts"></select>
 
-      <button onclick="handleClickAddProduct()">Add Product</button>
+      <button onclick="postarProd()">Add Product</button>
     </form>
 
     <div class="table-products">

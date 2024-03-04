@@ -1,9 +1,16 @@
 const apiUrl = "http://localhost/routes/products.php";
 
+// const dbProd = jquery.parseJSON(apiUrl);
+
+// const deleteProduct = async (id) => {
+//   try {
+//     const res = await fetch(`http://localhost/routes/products.php?id=${id}`, {
+//       method: "DELETE",
+//     });
 const contactForm = document.getElementById("inputsProducts");
 const contactTable = document.getElementById("tbodyProducts");
 
-function postarCateg() {
+function postarProd() {
   contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const data = new FormData(contactForm);
@@ -22,24 +29,54 @@ function postarCateg() {
   });
 }
 
+// async function deleteProduct(id) {
+//   try {
+//     const res = await fetch(`http://localhost/routes/products.php?id=${id}`, {
+//       method: "DELETE",
+//     });
+//     if (res.status === 200) {
+//       window.location.reload();
+//     }
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// }
+
+const selectElement = document.getElementById("categoryProducts");
+selectElement.innerHTML = "<option value='#'>select a Category</option>";
+
+async function getCategories() {
+  const response = await fetch("http://localhost/routes/category.php");
+  console.log(response);
+  const categoriesList = await response.json();
+  categoriesList.forEach((category) => {
+    selectElement.innerHTML += `<option value="${category.code}">${category.name}</option>`;
+  });
+}
+getCategories();
+
 async function mostrarProd() {
-  const listaProd = document.getElementById("tbodyCategories");
+  const listaProd = document.getElementById("tbodyProducts");
   const response = await fetch(apiUrl);
   const productsList = await response.json();
+
   listaProd.innerHTML = "";
 
   productsList.forEach((product) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `<tr>
-      <td>${product.code}</td>
-      <td>${product.name}</td>
-      <td>${product.tax}</td>
-      <td><button onclick="deleteCategory(${categories.code})">Delete</td>
-      </tr>`;
+    <td>${product.code}</td>
+    <td>${product.name}</td>
+    <td>${product.amount}</td>
+    <td>${product.price}</td>
+    <td>${product.category_code}</td>
+    <td><button onclick="deleteProduct('${product.code}')">Delete</td>
+    </tr>`;
+
     listaProd.appendChild(tr);
+    console.log(mostrarProd);
   });
 }
-
 mostrarProd();
 
 async function showAddedProd() {
@@ -48,14 +85,23 @@ async function showAddedProd() {
   productsList.forEach((product) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `<tr>
-      <td>${product.code}</td>
-      <td>${product.name}</td>
-      <td>${product.tax}</td>
-      <td><button onclick="deleteCategory(${product.code})">Delete</td>
-      </tr>`;
-    listaProd.appendChild(tr);
+    <td>${product.code}</td>
+    <td>${product.name}</td>
+    <td>${product.amount}</td>
+    <td>${product.price}</td>
+    <td>${product.category_code}</td>
+    <td><button onclick="deleteProduct('${product.code}')">Delete</td>
+    </tr>`;
+    contactTable.appendChild(tr);
   });
 }
+showAddedProd();
+
+
+
+// dbProd.map((category) => {
+//   selectElement.innerHTML += `<option value="${category.id}">${category.nameCategories}</option>`;
+// });
 
 // const select = document.getElementById("categoryProducts");
 
@@ -146,14 +192,6 @@ async function showAddedProd() {
 
 // const categorySelect = () => {
 //   const dbCategories = JSON.parse(localStorage.getItem("db_categories")) ?? [];
-//   const selectElement = document.getElementById("categoryProducts");
-
-//   selectElement.innerHTML = "<option value='#'>select a Category</option>";
-
-//   dbCategories.map((category) => {
-//     selectElement.innerHTML += `<option value="${category.id}">${category.nameCategories}</option>`;
-//   });
-// };
 
 // const updateTable = () => {
 //   const tableBody = document.querySelector("#tableProducts>tbody");
@@ -164,4 +202,14 @@ async function showAddedProd() {
 // document.addEventListener("DOMContentLoaded", () => {
 //   categorySelect();
 //   renderProducts();
+// });
+
+// const contactForm = document.getElementById("inputsProducts");
+// const contactTable = document.getElementById("tbodyProducts");
+
+//separado - pode ser usado
+// const response = await fetch("http://localhost/routes/categories.php");
+// const categoriesList = await response.json();
+// categoriesList.forEach((category) => {
+//   selectElement.innerHTML += `<option value="${category.id}">${category.nameCategories}</option>`;
 // });
