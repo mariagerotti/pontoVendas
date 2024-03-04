@@ -1,47 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="./js/categories.js" defer></script>
-    <title>Categories</title>
-  </head>
 
-  <body>
-    <div class="header">
-      <h1>Categories</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="categories.html">Categories</a></li>
-        <li><a href="history.html">History</a></li>
-      </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="./js/categories.js" defer></script>
+  <title>Categories</title>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Categories</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="history.html">History</a></li>
+    </ul>
+  </div>
+
+  <div class="main main-categories">
+    <form class="inputs-categories" id="inputsCategories" method="post">
+      <input  placeholder="Category Name" type="text" name="name" id="nameCategories" />
+
+      <input  placeholder="$ Tax" type="number" name="tax" id="taxCategories" step="0.01" min="0.01" />
+      <button onclick="postarCateg()">Add Category</button>
+    </form>
+
+    <div class="table-categories">
+      <table id="tableCategories">
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Category</th>
+            <th>Tax</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="tbodyCategories"></tbody>
+      </table>
     </div>
+  </div>
+</body>
 
-    <div class="main main-categories">
-      <form class="inputs-categories" id="inputsCategories" method="post">
-        <input required placeholder="Category Name" type="text" name="category-name" id="nameCategories" />
-
-        <input required placeholder="$ Tax" type="number" name="category-tax" id="taxCategories" step="0.01"  min="0.01"/>
-        <button onclick="saveCategory()">Add Category</button>
-      </form>
-
-      <div class="table-categories">
-        <table id="tableCategories">
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Category</th>
-              <th>Tax</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="tbodyCategories"></tbody>
-        </table>
-      </div>
-    </div>
-  </body>
 </html>
 <!-- if(isset("addcategoryh")){
   $name  = 
