@@ -1,6 +1,5 @@
 const apiUrl = "http://localhost/routes/products.php";
 
-// const dbProd = jquery.parseJSON(apiUrl);
 
 // const deleteProduct = async (id) => {
 //   try {

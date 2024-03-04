@@ -58,6 +58,18 @@ async function showAddedCat() {
   console.log(showAddedCat);
 }
 
+function deleteCategory(code) {
+  fetch(apiUrl, {
+    method: "DELETE",
+    body: JSON.stringify({ code: code }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      mostrarCateg();
+    });
+}
+
 // const getLocalStorage = () =>
 // JSON.parse(localStorage.getItem("db_categories")) ?? [];
 
