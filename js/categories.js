@@ -40,7 +40,7 @@ async function mostrarCateg() {
   });
 }
 
-mostrarCateg()
+mostrarCateg();
 
 async function showAddedCat() {
   const response = await fetch(apiUrl);
@@ -58,18 +58,20 @@ async function showAddedCat() {
   console.log(showAddedCat);
 }
 
-function deleteCategory(code) {
-  fetch(apiUrl, {
-    method: "DELETE",
-    body: JSON.stringify({ code: code }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      mostrarCateg();
+async function deleteCategory(code) {
+  try {
+    const res = await fetch(
+      `http://localhost/routes/category.php?code=${code}`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => {
+      window.location.reload();
     });
+  } catch (error) {
+    console.log(error.message);
+  }
 }
-
 // const getLocalStorage = () =>
 // JSON.parse(localStorage.getItem("db_categories")) ?? [];
 

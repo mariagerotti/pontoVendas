@@ -1,7 +1,6 @@
-const urlOrderItem = 'http://localhost/routes/orderItem.php'
-const urlOrder = 'http://localhost/routes/order.php'
-const urlProduct = 'http://localhost/routes/product.php'
-
+const urlOrderItem = "http://localhost/routes/orderItem.php";
+const urlOrder = "http://localhost/routes/order.php";
+const urlProduct = "http://localhost/routes/products.php";
 
 const setCart = (cart) => localStorage.setItem("cart", JSON.stringify(cart));
 const getCart = () => JSON.parse(localStorage.getItem("cart")) ?? [];
@@ -14,12 +13,6 @@ const createProduct = (product) => {
   cart.push(product);
   setCart(cart);
 };
-
-async function getProducts() {
-  const response = await fetch(urlProduct);
-  const data = await response.json();
-  return data;
-}
 
 function postarProd() {
   const formData = new FormData(contactForm);
@@ -37,114 +30,108 @@ function postarProd() {
 function showAddedProd() {
   const formData = new FormData(contactForm);
   fetch(urlOrderItem)
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
       const newRow = document.createElement("tr");
       newRow.innerHTML = `
       <td>${data.name}</td>
       <td>${data.price}</td>
       <td>${data.amount}</td>
       <td>${data.amount * data.price}</td>
-      <td><button class="secundary-button" onclick="deleteProduct('${data.code}')">Delete</td>
+      <td><button class="secundary-button" onclick="deleteProduct('${
+        data.code
+      }')">Delete</td>
       `;
       document.querySelector("#tbodyCart").appendChild(newRow);
     });
-  }
-  
-  const calculateTotalAndTax = () => {
-    const cart = getCart();
-    const total = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
-    const tax = cart.reduce((acc, item) => acc + item.category.taxCategories * item.amount, 0);
-    return { total, tax };
-  };
+}
 
-  const updateTotalAndTaxFields = () => {
-    const { total, tax } = calculateTotalAndTax();
-    document.getElementById("final-tax").value = `${tax.toFixed(2)}`;
-    document.getElementById("total").value = `${(total + tax).toFixed(2)}`;
-  };
+const calculateTotalAndTax = () => {
+  const cart = getCart();
+  const total = cart.reduce((acc, item) => acc + item.price * item.amount, 0);
+  const tax = cart.reduce(
+    (acc, item) => acc + item.tax * item.amount,
+    0
+  );
+  return { total, tax };
+};
 
-  const selectElement = document.getElementById("productName");
-  selectElement.innerHTML =  '<option value="#" disabled selected>Select a Product</option>';
-  
-  async function getProducts() {
-    const response = await fetch("http://localhost/routes/products.php");
-    console.log(response);
-    const productsList = await response.json();
-    productsList.forEach((category) => {
-      selectElement.innerHTML += `<option value="${category.code}">${category.name}</option>`;
-    });
-    updateTotalAndTaxFields();
-  }
-  getProducts();
+const updateTotalAndTaxFields = () => {
+  const { total, tax } = calculateTotalAndTax();
+  document.getElementById("final-tax").value = `${tax.toFixed(2)}`;
+  document.getElementById("total").value = `${(total + tax).toFixed(2)}`;
+};
 
-  // const optionsElement = [
-  //   urlProduct().map(
-  //     (option) => `<option value="${option.code}">${option.name}</option>`
-  //   ),
-  // ];
+const selectElement = document.getElementById("productName");
+selectElement.innerHTML =
+  '<option value="#" disabled selected>Select a Product</option>';
 
-  const getApiData = async () => {
-    try {
-      const response = await fetch(urlProduct);
-      if (!response.ok) {
-        throw new Error('Erro ao buscar dados da API');
-      }
-   
-      const data = await response.json();
-      return data ?? [];
-    } catch (error) {
-      console.error(error.message);
-      return [];
-    }
-  };
-   
-  const setLocalStorage = (dbProduct) => {
-    localStorage.setItem("db_product", JSON.stringify(dbProduct));
-  };
-   
-  document.querySelector("#productName").addEventListener("change", async (e) => {
-    const products = await getApiData();
-    const product = products.find((product) => product.id == e.target.value);
-   
-    document.getElementById("amount").value = 1;
-    document.getElementById("amount").max = product.amount;
-    document.getElementById("price").value = product.price;
-    document.getElementById("tax").value = product.category.taxCategories;
+async function getProducts() {
+  const response = await fetch(urlProduct);
+  console.log(response);
+  const productsList = await response.json();
+  productsList.forEach((category) => {
+    selectElement.innerHTML += `<option value="${category.code}">${category.name}</option>`;
   });
+  updateTotalAndTaxFields();
+}
+getProducts();
 
-  
+document.querySelector("#productName").addEventListener("change", (e) => {
+  const productId = e.target.value;
+
+  fetch(urlProduct)
+    .then((response) => response.json())
+    .then((data) => {
+      const product = data.find((product) => product.code == productId);
+      document.getElementById("amount").value = 1;
+      document.getElementById("amount").max = product.amount;
+      document.getElementById("price").value = product.price;
+      document.getElementById("tax").value = product.tax;
+    });
+});
+
+const createRow = (product) => {
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+  <td>${product.productName}</td>
+  <td>${product.price}</td>
+  <td>${product.amount}</td>
+  <td>${product.amount * product.price}</td>
+  <td><button class="secundary-button" onclick="deleteProduct('${
+    product.code
+  }')">Delete</td>
+  `;
+  document.querySelector("#tbodyCart").appendChild(newRow);
+};
 
 //como transformar getProducts em uma função async
 //como transformar getLocalStorage em uma função async
 
-  // document.querySelector("#productName").addEventListener("change", (e) => {
-  //   const product = getLocalStorage().find(
-  //     (product) => product.id == e.target.value
-  //     );
-  //     document.getElementById("amount").value = 1;
-  //     document.getElementById("amount").max = product.amount;
-  //     document.getElementById("price").value = product.price;
-  //     document.getElementById("tax").value = product.category.taxCategories;
-  //   });
-    
+// document.querySelector("#productName").addEventListener("change", (e) => {
+//   const product = getLocalStorage().find(
+//     (product) => product.id == e.target.value
+//     );
+//     document.getElementById("amount").value = 1;
+//     document.getElementById("amount").max = product.amount;
+//     document.getElementById("price").value = product.price;
+//     document.getElementById("tax").value = product.category.taxCategories;
+//   });
 
-  
-  // const optionsElement = [
-  //   urlProduct.map(
-  //     (option) => `<option value="${option.code}">${option.name}</option>`
-  //   ),
-  // ];
-  
-  // const getLocalStorage = () =>
-  //   JSON.parse(localStorage.getItem("db_product")) ?? [];
+// const optionsElement = [
+//   urlProduct.map(
+//     (option) => `<option value="${option.code}">${option.name}</option>`
+//   ),
+// ];
+
+// const getLocalStorage = () =>
+//   JSON.parse(localStorage.getItem("db_product")) ?? [];
 // const setLocalStorage = (dbProduct) =>
 //   localStorage.setItem("db_product", JSON.stringify(dbProduct));
 
 // const getCategories = () =>
 //   JSON.parse(localStorage.getItem("db_categories")) ?? [];
-
 
 // const getHistory = () => JSON.parse(localStorage.getItem("history")) ?? [];
 // const setHistory = (history) =>
@@ -218,46 +205,44 @@ function showAddedProd() {
 //   updateTotalAndTaxFields();
 // };
 
-// const isValidField = () => {
-//   return document.getElementById("formIndex").reportValidity();
-// };
+const isValidField = () => {
+  return document.getElementById("formIndex").reportValidity();
+};
 
-// const handleClickAddToCart = () => {
-//   if (isValidField()) {
-//     const allProducts = getLocalStorage();
+const handleClickAddToCart = async () => {
+  if (isValidField()) {
+    const productId = document
+      .getElementById("productName")
+      .value.replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+    const productAmount = document
+      .getElementById("amount")
+      .value.replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
 
-//     const productId = document
-//       .getElementById("productName")
-//       .value.replace(/</g, "&lt;")
-//       .replace(/>/g, "&gt;");
-//     const productAmount = document
-//       .getElementById("amount")
-//       .value.replace(/</g, "&lt;")
-//       .replace(/>/g, "&gt;");
+    const response = await fetch(`${urlProduct}/${productId}`);
+    const product = await response.json();
 
-//     const product = allProducts.find((product) => product.id == productId);
+    const cart = getCart();
+    if (cart.some((item) => item.id == product.id)) {
+      cart.forEach((item) => {
+        if (item.id == product.id) {
+          item.amount = parseInt(item.amount) + parseInt(productAmount);
+        }
+      });
+      setCart(cart);
+      return;
+    }
 
-//     const cart = getCart();
-//     if (cart.some((item) => item.id == product.id)) {
-//       cart.forEach((item) => {
-//         if (item.id == product.id) {
-//           item.amount = parseInt(item.amount) + parseInt(productAmount);
-//         }
-//       });
-//       setCart(cart);
-//       return;
-//     }
+    const cartItem = {
+      ...product,
+      amount: productAmount,
+    };
 
-//     const cartItem = {
-//       ...product,
-//       amount: productAmount,
-//     };
-
-//     console.log(cartItem);
-//     createProduct(cartItem);
-//     updateTable();
-//   }
-// };
+    createProduct(cartItem);
+    updateTable();
+  }
+};
 
 // const calculateTotalAndTax = () => {
 //   const cart = getCart();
@@ -286,10 +271,10 @@ function showAddedProd() {
 //     document.getElementById("price").value = product.price;
 //     document.getElementById("tax").value = product.category.taxCategories;
 //   });
-  
+
 //   const subtrctFromProduct = (cart) => {
 //     const products = getLocalStorage();
-    
+
 //     cart.forEach((item) => {
 //       const product = products.find((product) => product.id == item.id);
 //       if (item.amount <= product.amount) {
