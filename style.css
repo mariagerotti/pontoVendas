@@ -114,19 +114,6 @@ option {
   border-radius: 6px;
 }
 
-#productName{
- 
-
-  
-
-}
-
-
-
-#nameProductsProd {
-  display: flex;
-}
-
 #tax,
 #total {
   border: none;

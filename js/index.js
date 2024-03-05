@@ -85,6 +85,35 @@ function showAddedProd() {
   //   ),
   // ];
 
+  const getApiData = async () => {
+    try {
+      const response = await fetch(urlProduct);
+      if (!response.ok) {
+        throw new Error('Erro ao buscar dados da API');
+      }
+   
+      const data = await response.json();
+      return data ?? [];
+    } catch (error) {
+      console.error(error.message);
+      return [];
+    }
+  };
+   
+  const setLocalStorage = (dbProduct) => {
+    localStorage.setItem("db_product", JSON.stringify(dbProduct));
+  };
+   
+  document.querySelector("#productName").addEventListener("change", async (e) => {
+    const products = await getApiData();
+    const product = products.find((product) => product.id == e.target.value);
+   
+    document.getElementById("amount").value = 1;
+    document.getElementById("amount").max = product.amount;
+    document.getElementById("price").value = product.price;
+    document.getElementById("tax").value = product.category.taxCategories;
+  });
+
   
 
 //como transformar getProducts em uma função async

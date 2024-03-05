@@ -1,6 +1,5 @@
 const apiUrl = "http://localhost/routes/products.php";
 
-
 // const deleteProduct = async (id) => {
 //   try {
 //     const res = await fetch(`http://localhost/routes/products.php?id=${id}`, {
@@ -9,40 +8,26 @@ const apiUrl = "http://localhost/routes/products.php";
 const contactForm = document.getElementById("inputsProducts");
 const contactTable = document.getElementById("tbodyProducts");
 
-function postarProd() {
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+function postProducts() {
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
     const data = new FormData(contactForm);
+    console.log(contactForm);
+
     try {
-      const res = await fetch(
-        "http://localhost/routes/products.php",
-        {
-          method: "POST",
-          body: data,
-        },
-        window.location.reload()
-      );
+      const res = await fetch(apiUrl, {
+        method: "POST",
+        body: data,
+      });
+      window.location.reload();
     } catch (error) {
       console.log(error.message);
     }
   });
 }
 
-// async function deleteProduct(id) {
-//   try {
-//     const res = await fetch(`http://localhost/routes/products.php?id=${id}`, {
-//       method: "DELETE",
-//     });
-//     if (res.status === 200) {
-//       window.location.reload();
-//     }
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// }
-
 const selectElement = document.getElementById("categoryProducts");
-selectElement.innerHTML = "<option value='#'>select a Category</option>";
+selectElement.innerHTML = "<option disabled>select a Category</option>";
 
 async function getCategories() {
   const response = await fetch("http://localhost/routes/category.php");
@@ -71,32 +56,11 @@ async function mostrarProd() {
     <td>${product.category_code}</td>
     <td><button onclick="deleteProduct('${product.code}')">Delete</td>
     </tr>`;
-
     listaProd.appendChild(tr);
     console.log(mostrarProd);
   });
 }
 mostrarProd();
-
-async function showAddedProd() {
-  const response = await fetch(apiUrl);
-  const productsList = await response.json();
-  productsList.forEach((product) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<tr>
-    <td>${product.code}</td>
-    <td>${product.name}</td>
-    <td>${product.amount}</td>
-    <td>${product.price}</td>
-    <td>${product.category_code}</td>
-    <td><button onclick="deleteProduct('${product.code}')">Delete</td>
-    </tr>`;
-    contactTable.appendChild(tr);
-  });
-}
-showAddedProd();
-
-
 
 // dbProd.map((category) => {
 //   selectElement.innerHTML += `<option value="${category.id}">${category.nameCategories}</option>`;

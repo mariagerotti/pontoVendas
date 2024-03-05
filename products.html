@@ -22,18 +22,16 @@
   </div>
 
   <div class="main main-products">
-    <form class="inputs-products" id="inputsProducts" required>
-      <input required placeholder="Product Name" type="text" name="name" id="nameProductsProd"
-        data-index="new" />
+    <form class="inputs-products" id="inputsProducts">
+      <input placeholder="Product Name" type="text" name="name" id="nameProductsProd" data-index="new" />
 
-      <input required placeholder="Amount" type="number" name="amount" id="amountProducts" min="1" step="1" />
+      <input placeholder="Amount" type="number" name="amount" id="amountProducts" min="1" step="1" />
 
-      <input required placeholder="$ Unit Price" type="number" name="unitPrice" id="unitPriceProducts" min="1"
-        step="any" />
+      <input placeholder="$ Unit Price" type="number" name="price" id="unitPriceProducts" min="1" step="any" />
 
-      <select required id="categoryProducts"></select>
+      <select name="category_code" id="categoryProducts"></select>
 
-      <button onclick="postarProd()">Add Product</button>
+      <button onclick="postProducts()">Add Product</button>
     </form>
 
     <div class="table-products">
