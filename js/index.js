@@ -61,6 +61,7 @@ function addToCart(product) {
     <td><button onclick="deleteProduct('${product.code}')">Delete</td>
     </tr>`;
     contactTable.appendChild(tr);
+    updateTotalAndTaxFields();
   });
 }
 
@@ -99,18 +100,18 @@ info.input.select.addEventListener("change", async () => {
   changeInfo(product);
 });
 
-// const calculateTotalAndTax = () => {
-//   const total = cart.reduce((acc, item) => acc + item.price * item.bougth, 0);
-//   const tax = cart.reduce((acc, item) => acc + item.tax * item.bougth, 0);
-//   return { total, tax };
-// };
+const calculateTotalAndTax = () => {
+  const total = cart.reduce((acc, item) => acc + item.price * item.bougth, 0);
+  const tax = cart.reduce((acc, item) => acc + item.tax * item.bougth, 0);
+  return { total, tax };
+};
 
-// const updateTotalAndTaxFields = () => {
-//   const { total, tax } = calculateTotalAndTax();
-//   document.getElementById("final-tax").value = `${tax.toFixed(2)}`;
-//   document.getElementById("total").value = `${(total + tax).toFixed(2)}`;
-//   console.log(total, tax);
-// };
+const updateTotalAndTaxFields = () => {
+  const { total, tax } = calculateTotalAndTax();
+  document.getElementById("final-tax").value = `${tax.toFixed(2)}`;
+  document.getElementById("total").value = `${(total + tax).toFixed(2)}`;
+  console.log(total, tax);
+};
 
 finish.addEventListener("click", async () => {
   if (cart.length < 1) {
