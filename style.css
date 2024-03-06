@@ -86,7 +86,7 @@ a {
   color: black;
   font-weight: bold;
 }
-button {
+button, #buttonCreateProduct {
   background-color: rgb(114, 92, 252);
   border: none;
   border-radius: 6px;
