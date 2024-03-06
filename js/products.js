@@ -1,10 +1,5 @@
 const apiUrl = "http://localhost/routes/products.php";
 
-// const deleteProduct = async (id) => {
-//   try {
-//     const res = await fetch(`http://localhost/routes/products.php?id=${id}`, {
-//       method: "DELETE",
-//     });
 const contactForm = document.getElementById("inputsProducts");
 const contactTable = document.getElementById("tbodyProducts");
 
@@ -13,7 +8,7 @@ function postProducts() {
     event.preventDefault();
     const data = new FormData(contactForm);
     console.log(contactForm);
-
+    
     try {
       const res = await fetch(apiUrl, {
         method: "POST",
@@ -43,9 +38,9 @@ async function mostrarProd() {
   const listaProd = document.getElementById("tbodyProducts");
   const response = await fetch(apiUrl);
   const productsList = await response.json();
-
+  
   listaProd.innerHTML = "";
-
+  
   productsList.forEach((product) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `<tr>
@@ -62,25 +57,39 @@ async function mostrarProd() {
 }
 mostrarProd();
 
+async function deleteProduct(code) {
+  try {
+    const res = await fetch(
+      `http://localhost/routes/products.php?code=${code}`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => {
+      window.location.reload();
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+}
 // dbProd.map((category) => {
-//   selectElement.innerHTML += `<option value="${category.id}">${category.nameCategories}</option>`;
-// });
+  //   selectElement.innerHTML += `<option value="${category.id}">${category.nameCategories}</option>`;
+  // });
 
-// const select = document.getElementById("categoryProducts");
-
-// const getProducts = () => JSON.parse(localStorage.getItem("db_product")) ?? [];
-// const setProducts = (dbProduct) =>
-//   localStorage.setItem("db_product", JSON.stringify(dbProduct));
-
-// const getCategories = () =>
-//   JSON.parse(localStorage.getItem("db_categories")) ?? [];
-
-// // const categorias = getCategories();
-
-// const createRow = (product) => {
-//   const newRow = document.createElement("tr");
-//   newRow.innerHTML = `
-//   <td>${product.id}</td>
+  // const select = document.getElementById("categoryProducts");
+  
+  // const getProducts = () => JSON.parse(localStorage.getItem("db_product")) ?? [];
+  // const setProducts = (dbProduct) =>
+  //   localStorage.setItem("db_product", JSON.stringify(dbProduct));
+  
+  // const getCategories = () =>
+  //   JSON.parse(localStorage.getItem("db_categories")) ?? [];
+  
+  // // const categorias = getCategories();
+  
+  // const createRow = (product) => {
+    //   const newRow = document.createElement("tr");
+    //   newRow.innerHTML = `
+    //   <td>${product.id}</td>
 //   <td>${product.productName}</td>
 //   <td>${product.amount}</td>
 //   <td>${product.price}</td>
