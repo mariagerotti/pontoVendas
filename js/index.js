@@ -98,9 +98,10 @@ function addToCart(product) {
 
       for (const item of cart) {
         const product = products.find((product) => product.code == item.code);
+        console.log(item.bougth);
+
         if (item.bougth <= product.amount) {
           product.amount -= item.bougth;
-          console.log(item.bougth);
           await fetch(
             `http://localhost/routes/products.php?code=${product.code}`,
             {
@@ -166,8 +167,13 @@ form.addEventListener("submit", async (e) => {
   let product = info.input.select.value;
 
   let selected = await data.find((item) => item.code == product);
-
-  addToCart(selected);
+  console.log(product);
+  if (selected.amount <= info.input.amount.value) {
+    alert("Quantidade insuficiente em estoque");
+    return;
+  } else {
+    addToCart(selected);
+  }
 });
 
 info.input.select.addEventListener("change", async () => {
