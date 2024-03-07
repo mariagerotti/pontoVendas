@@ -1,6 +1,8 @@
 //apagar produto adicionado ao carrinho
 //send to history
 //view history order
+//descontar do estoque
+//verificacao se compra mais que tem no estoque
 
 const url = "http://localhost/routes/";
 const form = document.getElementById("formIndex");
@@ -32,7 +34,12 @@ const clearTable = () => {
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
+function deleteProduct(code){
+  
+}
+
 function addToCart(product) {
+  // debugger;
   let quantidade = info.input.amount.value;
   let existe = cart.find((item) => item.code == product.code);
 
@@ -57,31 +64,34 @@ function addToCart(product) {
     <td>${product.bougth}</td>
     <td>${product.bougth * product.price}</td>
     <td>${product.category_code}</td>
-    <td>${(product.bougth * product.price) + parseFloat(product.tax)}</td>
+    <td>${product.bougth * product.price + parseFloat(product.tax)}</td>
     <td><button onclick="deleteProduct('${product.code}')">Delete</td>
     </tr>`;
     contactTable.appendChild(tr);
     updateTotalAndTaxFields();
+    // subtrctFromProduct(cart);
   });
 }
 
 async function changeInfo(productCode) {
-  let products = await fetch(url + "products.php").then(async (res) => {
-    return await res.json();
-  });
+  if (productCode != "#") {
+    let products = await fetch(url + "products.php").then(async (res) => {
+      return await res.json();
+    });
 
-  let selected = products.find((item) => item.code == productCode);
-  console.log(selected);
+    let selected = products.find((item) => item.code == productCode);
+    console.log(selected);
 
-  info.price.value = selected.price;
-  info.tax.value = selected.tax;
-
- 
+    info.price.value = selected.price;
+    info.tax.value = selected.tax;
+  }
 }
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   e.stopPropagation();
+
+  debugger;
 
   let products = fetch(url + "products.php").then(async (res) => {
     return await res.json();
@@ -110,7 +120,6 @@ const updateTotalAndTaxFields = () => {
   const { total, tax } = calculateTotalAndTax();
   document.getElementById("final-tax").value = `${tax.toFixed(2)}`;
   document.getElementById("total").value = `${(total + tax).toFixed(2)}`;
-  console.log(total, tax);
 };
 
 finish.addEventListener("click", async () => {
@@ -146,6 +155,19 @@ finish.addEventListener("click", async () => {
     console.log(await request);
   });
 });
+
+// const subtrctFromProduct = (cart) => {
+//       cart.forEach((item) => {
+//         const product = cart.find((product) => product.code == item.code);
+//         if (item.amount <= product.amount) {
+//           alert("Compra finalizada com sucesso");
+//           product.amount -= item.amount;
+//           setLocalStorage(cart);
+//         } else {
+//         alert("Quantidade insuficiente em estoque");
+//       }
+//     });
+//   };
 
 async function init() {
   //pegar todos os produtos
