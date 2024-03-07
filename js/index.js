@@ -1,7 +1,5 @@
 //apagar produto adicionado ao carrinho
-//fazer o cancel
-//send to history
-//view history order
+//adjust price and total in table
 //descontar do estoque
 //verificacao se compra mais que tem no estoque
 
@@ -16,6 +14,7 @@ const info = {
     amount: document.getElementById("amount"),
   },
   tax: document.getElementById("tax"),
+  finalTax: document.getElementById("final-tax"),
   price: document.getElementById("price"),
 };
 
@@ -28,6 +27,7 @@ const clearFields = () => {
   info.input.amount.value = "";
   info.price.value = "";
   info.tax.value = "";
+  info.finalTax.value = "";
 };
 
 const clearTable = () => {
@@ -50,8 +50,34 @@ async function deleteProduct(code) {
   }
 }
 
+// const subtractFromProduct = async (cart) => {
+//   try {
+//     const products = await fetch("http://localhost/routes/products.php").then(async (res) => {
+//       return await res.json();
+//     });
+
+//     cart.forEach(async (item) => {
+//       const product = products.find((product) => product.code == item.code);
+//       if (item.bougth <= product.amount) {
+//         alert("Compra finalizada com sucesso");
+//         product.amount -= item.bougth;
+//         await fetch(`http://localhost/routes/products.php?code=${product.code}`, {
+//           method: "PUT",
+//           body: JSON.stringify(product),
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         });
+//         updateHistory(cart);
+//       } else {
+//         alert("Quantidade insuficiente em estoque");
+//       }
+//     });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };
 function addToCart(product) {
-  // debugger;
   let quantidade = info.input.amount.value;
   let existe = cart.find((item) => item.code == product.code);
 
@@ -60,6 +86,36 @@ function addToCart(product) {
   } else {
     let comprar = { ...product, bougth: quantidade };
     cart.push(comprar);
+  }
+
+  async function subtractFromProduct(cart) {
+    try {
+      const products = await fetch("http://localhost/routes/products.php").then(
+        async (res) => {
+          return await res.json();
+        }
+      );
+
+      for (const item of cart) {
+        const product = products.find((product) => product.code == item.code);
+        if (item.bougth <= product.amount) {
+          product.amount -= item.bougth;
+          console.log(item.bougth);
+          await fetch(
+            `http://localhost/routes/products.php?code=${product.code}`,
+            {
+              method: "PUT",
+              body: JSON.stringify(product),
+            }
+          );
+        } else {
+          alert("Quantidade insuficiente em estoque");
+          return; // Exit the function if there is not enough product in stock
+        }
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   clearFields();
@@ -81,7 +137,7 @@ function addToCart(product) {
     </tr>`;
     contactTable.appendChild(tr);
     updateTotalAndTaxFields();
-    // subtrctFromProduct(cart);
+    subtractFromProduct(cart);
   });
 }
 
@@ -101,8 +157,6 @@ async function changeInfo(productCode) {
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   e.stopPropagation();
-
-  // debugger;
 
   let products = fetch(url + "products.php").then(async (res) => {
     return await res.json();
@@ -134,7 +188,7 @@ const updateTotalAndTaxFields = () => {
 };
 
 finish.addEventListener("click", async () => {
-  debugger;
+  // debugger;
   if (cart.length < 1) {
     alert("Por favor compre alguma coisa");
     return;
@@ -149,13 +203,13 @@ finish.addEventListener("click", async () => {
   console.log(code);
 
   cart.forEach(async (item) => {
-    debugger;
     let form = new FormData();
     form.append("order_code", parseInt(code));
     form.append("product_code", item.code);
     form.append("amount", item.bougth);
     form.append("price", item.price * parseInt(item.bougth));
     form.append("tax", item.tax * item.bougth);
+    clearTable();
 
     await fetch("http://localhost/routes/orderItem.php", {
       method: "post",
@@ -165,25 +219,13 @@ finish.addEventListener("click", async () => {
 });
 
 const cancelBuy = () => {
-  const response = confirm("Deseja realmente cancelar o carrinho de compras?");
+  const response = confirm(
+    "As alterações não serão salvas. Deseja realmente cancelar o carrinho?"
+  );
   if (response);
-  carrinhoTemp = [];
-  updateTable();
-  showTotal();
+  cart = [];
+  clearTable();
 };
-
-// const subtrctFromProduct = (cart) => {
-//       cart.forEach((item) => {
-//         const product = cart.find((product) => product.code == item.code);
-//         if (item.bougth <= product.bougth) {
-//           alert("Compra finalizada com sucesso");
-//           product.bougth -= item.bougth;
-//           setLocalStorage(cart);
-//         } else {
-//         alert("Quantidade insuficiente em estoque");
-//       }
-//     });
-//   };
 
 async function init() {
   //pegar todos os produtos
@@ -205,3 +247,5 @@ async function init() {
   changeInfo(product);
 }
 init();
+
+document.getElementById("cancel").addEventListener("click", cancelBuy);
