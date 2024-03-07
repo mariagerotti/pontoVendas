@@ -1,8 +1,5 @@
 //apagar produto adicionado ao carrinho
 //adjust price and total in table
-//descontar do estoque
-//verificacao se compra mais que tem no estoque
-
 const url = "http://localhost/routes/";
 const form = document.getElementById("formIndex");
 const finish = document.getElementById("finish-button");
@@ -35,48 +32,25 @@ const clearTable = () => {
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
+
+
 async function deleteProduct(code) {
   try {
     const res = await fetch(
-      `http://localhost/routes/products.php?code=${code}`,
+      `http://localhost/routes/orderItem.php?code=${code}`,
       {
         method: "DELETE",
       }
     ).then((res) => {
-      window.location.reload();
+      clearTable();
     });
   } catch (error) {
     console.log(error.message);
   }
 }
 
-// const subtractFromProduct = async (cart) => {
-//   try {
-//     const products = await fetch("http://localhost/routes/products.php").then(async (res) => {
-//       return await res.json();
-//     });
 
-//     cart.forEach(async (item) => {
-//       const product = products.find((product) => product.code == item.code);
-//       if (item.bougth <= product.amount) {
-//         alert("Compra finalizada com sucesso");
-//         product.amount -= item.bougth;
-//         await fetch(`http://localhost/routes/products.php?code=${product.code}`, {
-//           method: "PUT",
-//           body: JSON.stringify(product),
-//           headers: {
-//             "Content-Type": "application/json",
-//           },
-//         });
-//         updateHistory(cart);
-//       } else {
-//         alert("Quantidade insuficiente em estoque");
-//       }
-//     });
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
+
 function addToCart(product) {
   let quantidade = info.input.amount.value;
   let existe = cart.find((item) => item.code == product.code);
@@ -134,11 +108,11 @@ function addToCart(product) {
     <td>${product.bougth * product.price}</td>
     <td>${product.category_code}</td>
     <td>${product.bougth * product.price + parseFloat(product.tax)}</td>
-    <td><button onclick="deleteProduct('${product.code}')">Delete</td>
+    <td><button onclick="deleteProduct(${product.code})">Delete</td>
     </tr>`;
     contactTable.appendChild(tr);
     updateTotalAndTaxFields();
-    subtractFromProduct(cart);
+    subtractFromProduct([product]); // Pass the product as an array to delete only the selected product
   });
 }
 
