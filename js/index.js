@@ -1,4 +1,5 @@
 //apagar produto adicionado ao carrinho
+//fazer o cancel
 //send to history
 //view history order
 //descontar do estoque
@@ -34,8 +35,19 @@ const clearTable = () => {
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
-function deleteProduct(code){
-  
+async function deleteProduct(code) {
+  try {
+    const res = await fetch(
+      `http://localhost/routes/products.php?code=${code}`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => {
+      window.location.reload();
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 function addToCart(product) {
@@ -74,11 +86,10 @@ function addToCart(product) {
 }
 
 async function changeInfo(productCode) {
-  if (productCode != "#") {
-    let products = await fetch(url + "products.php").then(async (res) => {
-      return await res.json();
-    });
-
+  let products = await fetch(url + "products.php").then(async (res) => {
+    return await res.json();
+  });
+  if (productCode != "#" && products.length > 0) {
     let selected = products.find((item) => item.code == productCode);
     console.log(selected);
 
@@ -91,7 +102,7 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   e.stopPropagation();
 
-  debugger;
+  // debugger;
 
   let products = fetch(url + "products.php").then(async (res) => {
     return await res.json();
@@ -123,45 +134,50 @@ const updateTotalAndTaxFields = () => {
 };
 
 finish.addEventListener("click", async () => {
+  debugger;
   if (cart.length < 1) {
     alert("Por favor compre alguma coisa");
     return;
   }
 
-  let order = fetch("http://localhost/routes/order.php", {
-    method: "post",
-    body: form,
-  }).then(async (res) => {
-    return await res.text();
+  let order = await fetch("http://localhost/routes/order.php", {
+    method: "POST",
+    body: new FormData(form),
   });
 
-  let data = JSON.parse(await order);
-  console.log(data);
+  let { code } = await order.json();
+  console.log(code);
 
   cart.forEach(async (item) => {
+    debugger;
     let form = new FormData();
-    form.append("order_code", data[0]);
+    form.append("order_code", parseInt(code));
     form.append("product_code", item.code);
     form.append("amount", item.bougth);
     form.append("price", item.price * parseInt(item.bougth));
     form.append("tax", item.tax * item.bougth);
-    let request = fetch("http://localhost/routes/orderItem.php", {
+
+    await fetch("http://localhost/routes/orderItem.php", {
       method: "post",
       body: form,
-    }).then(async (res) => {
-      return await res.text();
     });
-
-    console.log(await request);
   });
 });
+
+const cancelBuy = () => {
+  const response = confirm("Deseja realmente cancelar o carrinho de compras?");
+  if (response);
+  carrinhoTemp = [];
+  updateTable();
+  showTotal();
+};
 
 // const subtrctFromProduct = (cart) => {
 //       cart.forEach((item) => {
 //         const product = cart.find((product) => product.code == item.code);
-//         if (item.amount <= product.amount) {
+//         if (item.bougth <= product.bougth) {
 //           alert("Compra finalizada com sucesso");
-//           product.amount -= item.amount;
+//           product.bougth -= item.bougth;
 //           setLocalStorage(cart);
 //         } else {
 //         alert("Quantidade insuficiente em estoque");

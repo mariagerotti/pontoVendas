@@ -1,10 +1,33 @@
-const urlOrder = 'http://localhost/routes/order.php'
+const readOrder = async () => {
+  const response = await fetch("http://localhost/routes/order.php");
+  const data = await response.json();
+  return data;
+};
 
+const createRow = (order) => {
+  const tableBody = document.getElementById("tbodyHistory");
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+          <td>${order.code}</td>
+          <td>$${order.total}</td>
+          <td>$${order.tax}</td>
+          <td>
+          <button>
+          <a href="view-details.html?item=${order.code}" class="secundary-button">Detalhes
+          </button>
+          </td>
+      `;
+  tableBody.appendChild(newRow);
+};
 
+const updateTable = async () => {
+  const order = await readOrder();
+  order.forEach((order, index) => {
+    createRow(order, index);
+  });
+};
 
-
-
-
+updateTable();
 
 // const getHistory = () => JSON.parse(localStorage.getItem('history')) ?? [];
 // const setHistory = (history) => localStorage.setItem('history', JSON.stringify(history));
@@ -30,6 +53,4 @@ const urlOrder = 'http://localhost/routes/order.php'
 //   });
 // };
 
-
 // renderHistory();
-
