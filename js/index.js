@@ -2,6 +2,7 @@
 //clean total and price after finish buy
 const url = "http://localhost/routes/";
 const form = document.getElementById("formIndex");
+const finalteste = document.getElementById("finalteste");
 const finish = document.getElementById("finish-button");
 var cart = [];
 
@@ -15,7 +16,6 @@ const info = {
   price: document.getElementById("price"),
   total: document.getElementById("total"),
 };
-
 
 const updateTableAfterDelete = (code) => {
   const contactTable = document.getElementById("tbodyCart");
@@ -38,8 +38,7 @@ const updateTableAfterDelete = (code) => {
     });
     updateTotalAndTaxFields();
   }
-}
-
+};
 
 const selectElement = document.getElementById("productName");
 selectElement.innerHTML =
@@ -58,8 +57,6 @@ const clearTable = () => {
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
-
-
 async function deleteProduct(code) {
   try {
     const res = await fetch(
@@ -74,8 +71,6 @@ async function deleteProduct(code) {
     console.log(error.message);
   }
 }
-
-
 
 function addToCart(product) {
   let quantidade = info.input.amount.value;
@@ -111,7 +106,7 @@ function addToCart(product) {
           );
         } else {
           alert("Quantidade insuficiente em estoque");
-          return; 
+          return;
         }
       }
     } catch (error) {
@@ -138,7 +133,7 @@ function addToCart(product) {
     </tr>`;
     contactTable.appendChild(tr);
     updateTotalAndTaxFields();
-    subtractFromProduct([product]); 
+    subtractFromProduct([product]);
   });
 }
 
@@ -199,11 +194,18 @@ finish.addEventListener("click", async () => {
     alert("Por favor compre alguma coisa");
     return;
   }
+  let data = new FormData();
+  let tax = cart.reduce((acc, item) => acc + item.tax * item.bougth, 0);
+  let total =
+    cart.reduce((acc, item) => acc + item.price * item.bougth, 0) + tax;
+  data.append("total", total);
+  data.append("tax", tax);
 
   let order = await fetch("http://localhost/routes/order.php", {
     method: "POST",
-    body: new FormData(form),
+    body: data,
   });
+
   let { code } = await order.json();
   console.log(code);
 

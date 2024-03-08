@@ -9,8 +9,8 @@ const createRow = (order) => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `
           <td>${order.code}</td>
-          <td>$${order.total}</td>
           <td>$${order.tax}</td>
+          <td>$${order.total}</td>
           <td>
           <button>
           <a href="view-details.html?code=${order.code}" class="secundary-button">View details
