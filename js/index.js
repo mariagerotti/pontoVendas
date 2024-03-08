@@ -1,4 +1,3 @@
-//adjust price and total in table
 //clean total and price after finish buy
 const url = "http://localhost/routes/";
 const form = document.getElementById("formIndex");
@@ -50,6 +49,7 @@ const clearFields = () => {
   info.price.value = "";
   info.tax.value = "";
   info.finalTax.value = "";
+  info.total.value = "";
 };
 
 const clearTable = () => {
@@ -198,6 +198,7 @@ finish.addEventListener("click", async () => {
   let tax = cart.reduce((acc, item) => acc + item.tax * item.bougth, 0);
   let total =
     cart.reduce((acc, item) => acc + item.price * item.bougth, 0) + tax;
+
   data.append("total", total);
   data.append("tax", tax);
 
@@ -217,12 +218,15 @@ finish.addEventListener("click", async () => {
     form.append("price", item.price * parseInt(item.bougth));
     form.append("tax", item.tax * item.bougth);
     clearTable();
+    clearFields();
 
     await fetch("http://localhost/routes/orderItem.php", {
       method: "post",
       body: form,
     });
   });
+
+  alert("Produto comprado com sucesso!");
 });
 
 const cancelBuy = () => {
@@ -235,7 +239,6 @@ const cancelBuy = () => {
 };
 
 async function init() {
-  //pegar todos os produtos
   let products = fetch(url + "products.php").then(async (res) => {
     return await res.json();
   });
@@ -249,7 +252,6 @@ async function init() {
     ).innerHTML += `<option value=${element.code}>${element.name}</option>`;
   });
 
-  // preencher infos primeiro produto
   let product = info.input.select.value;
   changeInfo(product);
 }
