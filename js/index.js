@@ -15,6 +15,50 @@ const info = {
   price: document.getElementById("price"),
 };
 
+// const updateTable = () => {
+//   const contactTable = document.getElementById("tbodyCart");
+//   cart.forEach((product) => {
+//     const tr = document.createElement("tr");
+
+//     tr.innerHTML += `<tr>
+//     <td>${product.code}</td>
+//     <td>${product.name}</td>
+//     <td>${product.bougth}</td>
+//     <td>${product.bougth * product.price}</td>
+//     <td>${product.category_code}</td>
+//     <td>${product.bougth * product.price + parseFloat(product.tax)}</td>
+//     <td><button onclick="deleteProduct(${product.code})">Delete</td>
+//     </tr>`;
+
+//     contactTable.appendChild(tr);
+//     updateTotalAndTaxFields();
+//   });
+// }
+
+const updateTableAfterDelete = (code) => {
+  const contactTable = document.getElementById("tbodyCart");
+  const index = cart.findIndex((product) => product.code === code);
+  if (index !== -1) {
+    cart.splice(index, 1);
+    contactTable.innerHTML = "";
+    cart.forEach((product) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML += `<tr>
+        <td>${product.code}</td>
+        <td>${product.name}</td>
+        <td>${product.bougth}</td>
+        <td>${product.bougth * product.price}</td>
+        <td>${product.category_code}</td>
+        <td>${product.bougth * product.price + parseFloat(product.tax)}</td>
+        <td><button onclick="deleteProduct(${product.code})">Delete</td>
+      </tr>`;
+      contactTable.appendChild(tr);
+    });
+    updateTotalAndTaxFields();
+  }
+}
+
+
 const selectElement = document.getElementById("productName");
 selectElement.innerHTML =
   '<option value="#" disabled selected>Select a Product</option>';
@@ -42,7 +86,7 @@ async function deleteProduct(code) {
         method: "DELETE",
       }
     ).then((res) => {
-      clearTable();
+      updateTableAfterDelete(code);
     });
   } catch (error) {
     console.log(error.message);
@@ -85,7 +129,7 @@ function addToCart(product) {
           );
         } else {
           alert("Quantidade insuficiente em estoque");
-          return; // Exit the function if there is not enough product in stock
+          return; 
         }
       }
     } catch (error) {
@@ -112,7 +156,7 @@ function addToCart(product) {
     </tr>`;
     contactTable.appendChild(tr);
     updateTotalAndTaxFields();
-    subtractFromProduct([product]); // Pass the product as an array to delete only the selected product
+    subtractFromProduct([product]); 
   });
 }
 
