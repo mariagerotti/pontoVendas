@@ -1,4 +1,3 @@
-//clean total and price after finish buy
 const url = "http://localhost/routes/";
 const form = document.getElementById("formIndex");
 const finalteste = document.getElementById("finalteste");
