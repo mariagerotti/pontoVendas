@@ -13,12 +13,15 @@ const createRow = (order) => {
           <td>$${order.tax}</td>
           <td>
           <button>
-          <a href="view-details.html?item=${order.code}" class="secundary-button">Detalhes
+          <a href="view-details.html?code=${order.code}" class="secundary-button">View details
           </button>
           </td>
       `;
   tableBody.appendChild(newRow);
+  console.log(order.total);
+  
 };
+
 
 const updateTable = async () => {
   const order = await readOrder();

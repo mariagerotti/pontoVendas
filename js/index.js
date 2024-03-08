@@ -1,5 +1,5 @@
-//apagar produto adicionado ao carrinho
 //adjust price and total in table
+//clean total and price after finish buy
 const url = "http://localhost/routes/";
 const form = document.getElementById("formIndex");
 const finish = document.getElementById("finish-button");
@@ -13,27 +13,9 @@ const info = {
   tax: document.getElementById("tax"),
   finalTax: document.getElementById("final-tax"),
   price: document.getElementById("price"),
+  total: document.getElementById("total"),
 };
 
-// const updateTable = () => {
-//   const contactTable = document.getElementById("tbodyCart");
-//   cart.forEach((product) => {
-//     const tr = document.createElement("tr");
-
-//     tr.innerHTML += `<tr>
-//     <td>${product.code}</td>
-//     <td>${product.name}</td>
-//     <td>${product.bougth}</td>
-//     <td>${product.bougth * product.price}</td>
-//     <td>${product.category_code}</td>
-//     <td>${product.bougth * product.price + parseFloat(product.tax)}</td>
-//     <td><button onclick="deleteProduct(${product.code})">Delete</td>
-//     </tr>`;
-
-//     contactTable.appendChild(tr);
-//     updateTotalAndTaxFields();
-//   });
-// }
 
 const updateTableAfterDelete = (code) => {
   const contactTable = document.getElementById("tbodyCart");
@@ -222,7 +204,6 @@ finish.addEventListener("click", async () => {
     method: "POST",
     body: new FormData(form),
   });
-
   let { code } = await order.json();
   console.log(code);
 
