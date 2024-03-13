@@ -117,10 +117,8 @@ function addToCart(product) {
   clearTable();
 
   const contactTable = document.getElementById("tbodyCart");
-
   cart.forEach((product) => {
     const tr = document.createElement("tr");
-
     tr.innerHTML += `<tr>
     <td>${product.code}</td>
     <td>${product.name}</td>
@@ -207,7 +205,6 @@ finish.addEventListener("click", async () => {
   });
 
   let { code } = await order.json();
-  console.log(code);
 
   cart.forEach(async (item) => {
     let form = new FormData();
